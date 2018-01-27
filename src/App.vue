@@ -43,6 +43,22 @@
     margin: 0;
     padding: 0;
   }
+
+  /* SELECT  */
+  .v-select .dropdown-toggle {
+    border: 2px solid $pink;
+    color: $pink;
+  }
+  .v-select .open-indicator:before {
+    border-color: $pink;
+  }
+  .v-select.disabled .dropdown-toggle {
+    border-color: #ccc;
+  }
+  .v-select.disabled .open-indicator:before {
+    border-color: #ccc;
+  }
+
 </style>
 
 
