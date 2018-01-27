@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
-import BootstrapVue from 'bootstrap-vue'
 
-Vue.use(BootstrapVue);
+Vue.use(require('vue-moment'));
 
 new Vue({
   el: '#app',

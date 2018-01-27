@@ -23,6 +23,12 @@
       'wizz-titlebar': TitleBar,
       'wizz-sidebar': Sidebar,
       'wizz-tickets': Tickets
+    },
+    created() {
+      var nowDate = new Date();
+      // var date = nowDate.getFullYear()+'/'+(nowDate.getMonth()+1)+'/'+nowDate.getDate();
+      var date =
+      console.log(date);
     }
   }
 </script>

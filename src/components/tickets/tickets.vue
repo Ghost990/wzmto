@@ -19,17 +19,17 @@
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
-                                    Wed 7 October
-                                </span>
+                {{ new Date() | moment("subtract", "1 day", "ddd D MMMM") }}
+            </span>
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12 actual-date">
-            Saturday, 3 November 2015
+            {{ new Date() | moment("dddd, Do MMMM YYYY") }}
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
-                                    Sat 10 October
-                                </span>
+                {{ new Date() | moment("add", "1 day", "ddd D MMMM") }}
+            </span>
           </div>
         </div>
         <div class="row white-bg">
