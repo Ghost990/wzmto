@@ -1,0 +1,70 @@
+@import "variables";
+
+.info-bar {
+  height: 60px;
+  background: $blue;
+  color: white;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  @include transition(transition, 0.5s);
+  .inner {
+    height: 60px;
+    .logo {
+      width: 24px;
+      height: 24px;
+      background: url("../../assets/logo.svg");
+    }
+    .routes {
+      .route {
+        display: inline-block;
+        .leaving-from-text {
+          font-size: 12px;
+          text-transform: uppercase;
+        }
+        .city-airport {
+          font-size: 20px;
+          .city-shortname {
+            text-transform: uppercase;
+            opacity: .6;
+          }
+        }
+      }
+      .arrows {
+        width: 29px;
+        height: 21px;
+        background: url("../../assets/arrows.svg");
+        display: inline-block;
+        margin: 0 25px;
+      }
+    }
+    .passengers {
+      .passengers-text {
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+      .profile {
+        display: inline-block;
+        font-size: 20px;
+        &:last-of-type {
+          margin-left: 20px;
+        }
+        .profile-adult {
+          width: 16px;
+          height: 19px;
+          background: url("../../assets/profile.svg");
+          display: inline-block;
+        }
+        .profile-children {
+          width: 13px;
+          height: 14px;
+          background: url("../../assets/profile_small.svg");
+          display: inline-block;
+        }
+      }
+    }
+  }
+  &.shadow {
+    box-shadow: 0px 15px 25px 0px rgba(0, 0, 0, 0.4);
+  }
+}

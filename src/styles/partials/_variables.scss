@@ -1,0 +1,13 @@
+$blue: #06038d;
+$pink: #c6007e;
+$background: #f2f2f2;
+$dark: #343434;
+$light: #919191;
+
+@mixin transition($prop, $values...) {
+  -moz-#{$prop}: $values;
+  -ms-#{$prop}: $values;
+  -o-#{$prop}: $values;
+  -webkit-#{$prop}: $values;
+  $prop: $values;
+}

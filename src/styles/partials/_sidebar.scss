@@ -1,0 +1,113 @@
+@import "variables";
+
+.sidebar {
+  .sidebar-section {
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    &:first-of-type {
+      padding-top: 0;
+    }
+    .sidebar-wrap {
+      //border-bottom: 1px dashed $light;
+      margin-right: 28px;
+      padding: 0 0 0 10px;
+    }
+    .sidebar-single-row {
+      .item-price {
+        color: $blue;
+      }
+    }
+  }
+  .total-row {
+    .total-button {
+      width: 100%;
+      background: $blue;
+      color: white;
+      font-weight: bold;
+      height: 53px;
+      border-radius: 3px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      @include transition(transition, 0.5s);
+      span {
+        padding: 0 10px;
+      }
+      &:hover {
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+  .discount-section {
+    background: white;
+    padding: 20px 10px;
+    border-radius: 3px;
+    .sidebar-subtitle {
+      border-bottom: 1px solid $background;
+      .subtitle {
+        font-size: 12px;
+      }
+    }
+    .total-newprice {
+      margin: 20px 0 10px 0;
+      div {
+        color: $blue;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+    .total-oldprice {
+      div {
+        color: $light;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 14px;
+      }
+    }
+  }
+  .join-club {
+    text-align: center;
+    margin: 0;
+    .join-club-button {
+      height: 48px;
+      background: $pink;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+      width: 100%;
+      border-radius: 3px;
+      margin-top: -2px;
+      z-index: 1;
+      border: none;
+      cursor: pointer;
+      @include transition(transition, 0.5s);
+      &:hover {
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}
+
+.divider {
+  border-bottom: 1px dashed $light;
+  padding: 10px 0;
+  position: relative;
+  width: 100%;
+  margin-right: 14px;
+  .chevron {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: $background;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent $light $light transparent;
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: rotate(45deg);
+    margin-top: 2px;
+  }
+}

@@ -1,0 +1,34 @@
+@import "variables";
+
+a {
+  color: $dark;
+  @include transition(transition, 0.5s);
+  &:hover {
+    color: $dark !important;
+    text-decoration: none;
+    opacity: .6;
+  }
+}
+
+.grey-bg {
+  background: #f2f2f2 !important;
+}
+
+.white-bg {
+  background: white !important;
+}
+
+.main-bg {
+  position: fixed;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+h3 {
+  font-size: 16px;
+  text-transform: uppercase;
+  color: $blue !important;
+  font-weight: bold;
+}
