@@ -31,6 +31,10 @@
       <p>{{ fulls(select.iata).shortName }}</p>
     </div>
 
+    <select name="" id="">
+      <option v-for="select in selectedConnections" value="">{{ fulls(select.iata).shortName }}</option>
+    </select>
+
     <!--<p>{{ dict }}</p>-->
     <!--<p>{{ findIata.shortName }}</p>-->
     <!--<div v-for="airport in airports">{{ airport.connections }}</div>-->
