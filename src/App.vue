@@ -44,19 +44,31 @@
     padding: 0;
   }
 
-  /* SELECT  */
-  .v-select .dropdown-toggle {
-    border: 2px solid $pink;
-    color: $pink;
+  /* DATEPICKER */
+  .flatpickr-input,
+  .form-control,
+  .form-control:disabled, .form-control[readonly] {
+    border: 2px solid $pink !important;
+    background: white !important;
+    border-radius: 3px !important;
   }
-  .v-select .open-indicator:before {
-    border-color: $pink;
-  }
-  .v-select.disabled .dropdown-toggle {
-    border-color: #ccc;
-  }
-  .v-select.disabled .open-indicator:before {
-    border-color: #ccc;
+
+  /* GLOBAL BUTTONS */
+  .wizz-button {
+    text-align: center;
+    padding: 10px 35px;
+    border-radius: 3px;
+    color: white;
+    min-width: 300px;
+    max-width: 500px;
+    width: 100%;
+    cursor: pointer;
+    &.wizz-button-primary {
+      background: $blue;
+    }
+    &.wizz-button-secondary {
+      background: $pink;
+    }
   }
 
 </style>

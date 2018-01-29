@@ -1,48 +1,59 @@
 <template>
-  <div class="row flight-selector-card">
-    <div class="start-place col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-
-      <div class="input-group">
-        <select v-model="selected" @change="selectedConnect" class="custom-select">
-          <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
-          <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
-        </select>
+  <div class="flight-selector-card">
+    <div class="row">
+      <div class="start-place col-12 col-sm-4">
+        <h5>Departure</h5>
+        <div class="input-group">
+          <select id="departureSelect" name="departureSelect" v-model="selected" @change="selectedConnect" class="custom-select">
+            <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
+            <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
+          </select>
+        </div>
+        <p>{{ departureIata }}</p>
       </div>
-      <!--<p>{{ selected }}</p>-->
-      <p>{{ departureIata }}</p>
-      <flat-pickr
-        v-model="departureDate"
-        :config="config"
-        class="form-control"
-        :placeholder="getToday"
-        name="date"
-        >
-      </flat-pickr>
-      <p>{{ departureDate }}</p>
-
-    </div>
-    <div class="end-place col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-
-      <div class="input-group">
-        <select name="" id="" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
-          <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
-          <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
-        </select>
+      <div class="end-place col-12 col-sm-4">
+        <h5>Destination</h5>
+        <div class="input-group">
+          <select v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+            <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
+            <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
+          </select>
+        </div>
+        <div>
+          {{ destinationIata }}
+        </div>
       </div>
-      <div>
-        {{ destinationIata }}
+      <div class="end-place col-12 col-sm-4">
+        <h5>Date</h5>
+        <div class="input-group">
+          <flat-pickr
+            v-model="departureDate"
+            :config="config"
+            class="form-control"
+            :placeholder="getToday"
+            name="date"
+            :disabled="false"
+          >
+          </flat-pickr>
+        </div>
+        <p>{{ departureDate }}</p>
       </div>
-    </div>
-    <br><br>
-    <!--<div>-->
+      <br><br>
+      <!--<div>-->
       <!--{{ flights }}-->
-    <!--</div>-->
-    <div v-for="flight in flights">
-      {{ flight.flightNumber }}
+      <!--</div>-->
+      <div v-for="flight in flights">
+        {{ flight.flightNumber }}
+      </div>
+      <br><br>
+
+      <!--<button @click="getSelectedFlights">SEND</button>-->
     </div>
-    <br><br>
-    <button @click="getFlightDetails">GET</button>
-    <button @click="getSelectedFlights">SEND</button>
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <button class="wizz-button wizz-button-primary rounded" @click="getFlightDetails">GET</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -246,5 +257,7 @@
       border-color: $pink;
     }
   }
+
+
 
 </style>
