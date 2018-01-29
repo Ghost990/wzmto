@@ -34,6 +34,15 @@
       </div>
       <!--<p>{{ selected }}</p>-->
       <p>{{ departureIata }}</p>
+      <!--<datepicker v-model="departureDate" :format="'yyyy-MM-dd'"></datepicker>-->
+      <flat-pickr
+        v-model="departureDate"
+        :config="config"
+        class="form-control"
+        :placeholder="getToday"
+        name="date">
+      </flat-pickr>
+      <p>{{ departureDate }}</p>
 
       <!--<div class="input-group">-->
         <!--<select class="custom-select" id="inputGroupSelect04">-->
@@ -99,6 +108,7 @@
 
 <script>
   import axios from 'axios';
+  import moment from 'moment';
 
   export default {
     data() {
@@ -108,6 +118,8 @@
         departureIata: '',
         destinationIata: '',
         selectedDestination: 'Please select...',
+        departureDate: '',
+        destinationDate: '',
         longList: [],
         airports: [],
         startFlightSelected: {},
@@ -122,10 +134,24 @@
         objs: [
           {iata: 'BUD', shortName: 'Budapest'},
           {iata: 'LON', shortName: 'London'}
-        ]
+        ],
+        date: new Date(),
+        // Get more form https://chmln.github.io/flatpickr/options/
+        config: {
+          wrap: true, // set wrap to true only when using 'input-group'
+          altFormat: 'l, J F Y',
+          altInput: true,
+          dateFormat: 'Y-m-d',
+
+        },
       }
     },
     computed: {
+      getToday() {
+        let vm = this;
+        let date = new Date();
+        return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
+      },
       getIata() {
 
       },
