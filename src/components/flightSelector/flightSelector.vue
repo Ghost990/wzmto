@@ -1,40 +1,15 @@
 <template>
   <div class="row flight-selector-card">
     <div class="start-place col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <!--<v-select :onChange="firstSelected" v-model="startFlightSelected" label="shortName" :options="airports" ></v-select>-->
-      <!--<v-select ref="firstSelect" :onChange="findByIata" v-model="startFlightSelected" label="shortName" :options="airports" ></v-select>-->
-      <!--<v-select :onChange="selectedConnect" :options="airports" label="shortName" v-model="selected">-->
-        <!--<template slot="option" slot-scope="option">-->
-          <!--<span class="fa" :class="option.icon"></span>-->
-          <!--{{ option.shortName }}-->
-        <!--</template>-->
-      <!--</v-select>-->
-
-      <!--<b-form-select v-on:change="selectedConnect" v-model="selected" class="mb-3">-->
-        <!--<option :value="null">Please select an option</option>-->
-        <!--<option v-for="select in airports" value="">{{ fulls(select.iata).shortName }}</option>-->
-      <!--</b-form-select>-->
-      <!--<div>Selected: <strong>{{ selected }}</strong></div>-->
-
-      <!--<select v-model="selected" name="" id="">-->
-        <!--<option v-for="select in airports" value="">{{ fulls(select.iata).shortName }}</option>-->
-      <!--</select>-->
-      <!--<p>{{ selected }}</p>-->
-
-      <!--<p>{{ startFlightSelected.connections }}</p>-->
-      <!--<p>{{ isFirstSelected }}</p>-->
 
       <div class="input-group">
         <select v-model="selected" @change="selectedConnect" class="custom-select">
-          <!-- inline object literal -->
-          <!--<option :selected="true" :value="'selectpls'">Please select an option</option>-->
           <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
           <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
         </select>
       </div>
       <!--<p>{{ selected }}</p>-->
       <p>{{ departureIata }}</p>
-      <!--<datepicker v-model="departureDate" :format="'yyyy-MM-dd'"></datepicker>-->
       <flat-pickr
         v-model="departureDate"
         :config="config"
@@ -44,35 +19,8 @@
       </flat-pickr>
       <p>{{ departureDate }}</p>
 
-      <!--<div class="input-group">-->
-        <!--<select class="custom-select" id="inputGroupSelect04">-->
-          <!--<option selected>Choose...</option>-->
-          <!--<option value="1">One</option>-->
-          <!--<option value="2">Two</option>-->
-          <!--<option value="3">Three</option>-->
-        <!--</select>-->
-        <!--<div class="input-group-append">-->
-          <!--<button class="btn btn-outline-secondary" type="button">Button</button>-->
-        <!--</div>-->
-      <!--</div>-->
-
-
-
-      <!--<v-select :onChange="selectedConnect" v-model="selected">-->
-        <!--<span slot="select" v-for="select in objs">-->
-          <!--{{ select }}-->
-        <!--</span>-->
-      <!--</v-select>-->
-
     </div>
     <div class="end-place col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-      <!--<v-select :disabled="!isFirstSelected" v-model="endFlightSelected"  label="availableCities" :options="availableCities" ></v-select>-->
-      <!--<v-select label="shortName" :options="dict" ></v-select>-->
-      <!--<v-select :options="selectedConnections">-->
-        <!--<template>-->
-
-        <!--</template>-->
-      <!--</v-select>-->
 
       <div class="input-group">
         <select name="" id="" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
@@ -85,24 +33,11 @@
       </div>
     </div>
     <br><br>
-    <!--<button @click="findByIata">iata</button>-->
-    <!--<p>{{ startFlightSelected.connections }}</p>-->
-
-    <!--<p>{{ selectedConnections }}</p>-->
-    <!--<div v-for="select in selectedConnections">-->
-      <!--<p>{{ fulls(select.iata).shortName }}</p>-->
-    <!--</div>-->
-
-    <!--<select v-model="selected" v-on:change="selectedConnect">-->
-      <!--<option v-for="airport in airports" value="">{{ airport.shortName }}</option>-->
-    <!--</select>-->
-    <!--<p>{{ selected }}</p>-->
-
-
-
-    <!--<p>{{ dict }}</p>-->
-    <!--<p>{{ findIata.shortName }}</p>-->
-    <!--<div v-for="airport in airports">{{ airport.connections }}</div>-->
+    <div>
+      {{ flights }}
+    </div>
+    <br><br>
+    <button @click="getFlightDetails">GET</button>
   </div>
 </template>
 
@@ -123,6 +58,7 @@
         longList: [],
         airports: [],
         startFlightSelected: {},
+        flights: [],
         //endFlightSelected: null,
         isFirstSelected: false,
         findIata: [],
@@ -225,6 +161,20 @@
       },
       findByIata() {
         console.log(this.$refs.firstSelect.options);
+      },
+      getFlightDetails() {
+        axios.get(`https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`)
+          .then(response => {
+            const data = response.data;
+            let flightsArray = [];
+            for (let key in data) {
+              const flight = data[key];
+              flightsArray.push(flight);
+            }
+            this.flights = flightsArray;
+
+          })
+          .catch(error => console.log(error));
       }
     },
     created() {
