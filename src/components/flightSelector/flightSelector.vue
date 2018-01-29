@@ -15,7 +15,8 @@
         :config="config"
         class="form-control"
         :placeholder="getToday"
-        name="date">
+        name="date"
+        >
       </flat-pickr>
       <p>{{ departureDate }}</p>
 
@@ -33,11 +34,15 @@
       </div>
     </div>
     <br><br>
-    <div>
-      {{ flights }}
+    <!--<div>-->
+      <!--{{ flights }}-->
+    <!--</div>-->
+    <div v-for="flight in flights">
+      {{ flight.flightNumber }}
     </div>
     <br><br>
     <button @click="getFlightDetails">GET</button>
+    <button @click="getSelectedFlights">SEND</button>
   </div>
 </template>
 
@@ -53,7 +58,7 @@
         departureIata: '',
         destinationIata: '',
         selectedDestination: 'Please select...',
-        departureDate: '',
+        departureDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD'),
         destinationDate: '',
         longList: [],
         airports: [],
@@ -78,7 +83,7 @@
           altFormat: 'l, J F Y',
           altInput: true,
           dateFormat: 'Y-m-d',
-
+          defaultDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD')
         },
       }
     },
@@ -136,6 +141,9 @@
       }
     },
     methods: {
+      getSelectedFlights() {
+        this.$emit('selectedflight', this.flights);
+      },
       selectedConnect() {
         let vm = this;
         vm.selectedConnections = vm.selected.connections;
@@ -172,9 +180,12 @@
               flightsArray.push(flight);
             }
             this.flights = flightsArray;
-
+            this.$nextTick(() => {
+              this.$emit('selectedflight', flightsArray);
+            });
           })
           .catch(error => console.log(error));
+
       }
     },
     created() {

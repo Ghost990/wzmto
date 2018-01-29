@@ -1,7 +1,12 @@
 <template>
   <section class="col-xl-9 col-lg-9 col-md-9 col-12">
-    <wizz-flight-selector></wizz-flight-selector>
+    <wizz-flight-selector @selectedflight="getFlightData"></wizz-flight-selector>
     <wizz-discounts></wizz-discounts>
+    <div class="row">
+      <span v-for="flight in actualFlight">
+        {{ flight.flightNumber }}
+      </span>
+    </div>
     <div class="row tickets-row">
       <div class="col-12">
         <div class="row tickets-header align-items-center">
@@ -185,6 +190,17 @@
       'wizz-discounts': DiscountCard,
       'wizz-tickets-moredates': MoreDates,
       'wizz-flight-selector': FlightSelector
+    },
+    data() {
+      return {
+        actualFlight: ['123']
+      }
+    },
+    methods: {
+      getFlightData(event) {
+        this.actualFlight = event;
+        console.log(event);
+      }
     }
   }
 </script>
