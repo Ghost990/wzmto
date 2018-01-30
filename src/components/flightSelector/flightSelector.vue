@@ -9,7 +9,7 @@
             <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
           </select>
         </div>
-        <p>{{ departureIata }}</p>
+        <p>{{ selected.shortName }}</p>
       </div>
       <div class="end-place col-12 col-sm-4">
         <h5>Destination</h5>
@@ -33,6 +33,7 @@
             :placeholder="getToday"
             name="date"
             :disabled="false"
+            :onOpen="datePickerChanged"
           >
           </flat-pickr>
         </div>
@@ -52,6 +53,7 @@
     <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">
         <button class="wizz-button wizz-button-primary rounded" @click="getFlightDetails">GET</button>
+        <button class="wizz-button wizz-button-primary rounded" @click="preselect()">data</button>
       </div>
     </div>
   </div>
@@ -105,56 +107,27 @@
         let date = new Date();
         return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
       },
-      getIata() {
-
-      },
-      change() {
-        let vm = this;
-        let str = JSON.stringify(vm.startFlightSelected.connections)
-        console.log(str);
-
-      },
-      availableCities() {
-        let availableConnections = this.startFlightSelected.connections;
-        //var obj = this.dict.find(function (obj) { return obj.iata === 'BUD'; });
-        let objArr = [];
-
-        for (let object in availableConnections) {
-          var obj = this.dict.find(function (obj) { return obj.iata === object.iata; });
-          objArr.push(obj)
+      getDateVariant() {
+        let value = this.$ls.get('departure');
+        if (value !== null) {
+          return this.departureDate = value[3];
+        } else {
+          return moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD');
         }
-
-        this.objectArr = objArr;
-
-        return this.startFlightSelected.connections;
       },
-      longName() {
-        let vm = this;
-        let selI = [];
-        let savedIad = [];
-        // for (let iata in this.startFlightSelected.connections) {
-        //     let iataData = iata.iata;
-        //     selI.push(iataData);
-        //     for (let sel in selI) {
-        //       let found = vm.airports.find(x => x.iata === sel);
-        //       savedIad.push(found);
-        //       console.log(found)
-        //     }
-        // }
-
-        var found = vm.dict.find(function(element) {
-          return element.iata === 'BUD';
-        });
-
-
-
-
-        return found.shortName;
+      datePickerChanged() {
+        return alert('changed');
       }
     },
     methods: {
-      getSelectedFlights() {
-        this.$emit('selectedflight', this.flights);
+      preselect() {
+        let value = this.$ls.get('departure');
+        let callback = (val, oldVal, uri) => {
+          console.log('localStorage change', val);
+        };
+        this.$ls.on('departure', callback);
+        this.selected = value;
+        console.log(value);
       },
       selectedConnect() {
         let vm = this;
@@ -170,20 +143,10 @@
         let vm = this;
         return vm.airports.find(x => x.iata === iata);
 
-
-        // let found = vm.airports.find(x => x.iata === 'BUD');
-
       },
-      firstSelected(iata) {
-        this.findByIata(iata)
-        this.isFirstSelected = true;
-
-      },
-      findByIata() {
-        console.log(this.$refs.firstSelect.options);
-      },
-      getFlightDetails() {
-        axios.get(`https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`)
+      getFlightDetails(url) {
+        url = `https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
+        axios.get(url)
           .then(response => {
             const data = response.data;
             let flightsArray = [];
@@ -198,7 +161,14 @@
             });
           })
           .catch(error => console.log(error));
+          // this.$cookie.set('departure', JSON.stringify(this.selected), 1);
 
+          // this.$ls.set('destination', this.selectedDestination, 60 * 60 * 1000);
+          let value = this.$ls.get('departure');
+          if (value == null) {
+            let values = [this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate];
+            this.$ls.set('departure', values, 60 * 60 * 1000);
+          }
       }
     },
     created() {
@@ -223,15 +193,39 @@
         })
         .catch(error => console.log(error));
 
-    },
-    // mounted() {
-    //   $(document).ready(function() {
-    //     $('select').select2({
-    //       placeholder: 'select',
-    //       change: alert('changed')
-    //     });
-    //   });
-    // }
+      let value = this.$ls.get('departure');
+      let callback = (val, oldVal, uri) => {
+        console.log('localStorage change', val);
+      };
+      this.$ls.on('departure', callback);
+
+      if (value != null) {
+        this.selected = value[0];
+        this.selectedDestination = value[1];
+        this.departureDate = value[3];
+        this.isFirstSelected = true;
+        let url = value[2];
+
+        axios.get(url)
+          .then(response => {
+            const data = response.data;
+            let flightsArray = [];
+            for (let key in data) {
+              const flight = data[key];
+              flightsArray.push(flight);
+            }
+            this.flights = flightsArray;
+            this.$nextTick(() => {
+              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
+              bus.$emit('selectedflight', flightsArray, this.selected, this.selectedDestination, this.departureDate, this.departureIata, this.destinationIata);
+            });
+          })
+          .catch(error => console.log(error));
+
+        this.departureDate = value[3];
+        console.log(this.departureDate);
+      }
+    }
   }
 </script>
 

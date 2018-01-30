@@ -4,7 +4,13 @@ import vSelect from 'vue-select'
 import BootstrapVue from 'bootstrap-vue'
 import flatPickr from 'vue-flatpickr-component';
 import 'flatpickr/dist/flatpickr.css';
-import moment from 'moment'
+import moment from 'moment';
+import VueCookie from 'vue-cookie';
+import VueLocalStorage from 'vue-ls';
+
+Vue.use(VueLocalStorage);
+
+Vue.use(VueCookie);
 
 Vue.prototype.moment = moment;
 
