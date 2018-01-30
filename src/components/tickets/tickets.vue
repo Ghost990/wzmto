@@ -1,13 +1,13 @@
 <template>
   <section class="col-xl-9 col-lg-9 col-md-9 col-12">
-    <wizz-flight-selector @selectedflight="getFlightData"></wizz-flight-selector>
-    <wizz-discounts></wizz-discounts>
+    <wizz-flight-selector></wizz-flight-selector>
+    <wizz-discounts v-if="isTicketsShow"></wizz-discounts>
     <div class="row">
       <span v-for="flight in actualFlight">
         {{ flight.flightNumber }}
       </span>
     </div>
-    <div class="row tickets-row">
+    <div class="row tickets-row" v-if="isTicketsShow">
       <div class="col-12">
         <div class="row tickets-header align-items-center">
           <div class="col-12">
@@ -15,9 +15,9 @@
               Outbound
             </div>
             <div class="ticket-route text-center">
-              Budapest
+              {{ departureCity }}
               <span class="arrow"></span>
-              Barcelona El Prat
+              {{ destinationCity }}
             </div>
           </div>
         </div>
@@ -25,16 +25,16 @@
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
-                {{ new Date() | moment("subtract", "1 day", "ddd D MMMM") }}
+                {{ selectedDate | moment("subtract", "1 day", "ddd D MMMM") }}
             </span>
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12 actual-date">
-            {{ new Date() | moment("dddd, Do MMMM YYYY") }}
+            {{ selectedDate | moment("dddd, Do MMMM YYYY") }}
           </div>
           <div class="col-xl-4 col-lg-4 col-md-4 col-12">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
-                {{ new Date() | moment("add", "1 day", "ddd D MMMM") }}
+                {{ selectedDate | moment("add", "1 day", "ddd D MMMM") }}
             </span>
           </div>
         </div>
@@ -55,79 +55,20 @@
                 </div>
               </div>
             </div>
-            <div class="row time-row align-items-center">
+            <div class="row time-row align-items-center" v-for="flight in actualFlight">
               <div class="col-3">
-                06:05
+                {{ flight.departure | moment("HH:mm") }}
                 <span class="arrow"></span>
-                08:20
+                {{ flight.arrival | moment("HH:mm") }}
               </div>
               <div class="col">
                 <div class="row">
-                  <div class="col-4 text-center single-ticket-wrapper">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €9.99
+                  <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
+                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0">
+                      €{{ price.price }}
                     </button>
-                  </div>
-                  <div class="col-4 text-center single-ticket-wrapper grey-bg">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €19.99
-                    </button>
-                  </div>
-                  <div class="col-4 text-center single-ticket-wrapper">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €29.99
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row time-row align-items-center">
-              <div class="col-3">
-                09:15
-                <span class="arrow"></span>
-                10:20
-              </div>
-              <div class="col">
-                <div class="row">
-                  <div class="col-4 text-center single-ticket-wrapper">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €9.99
-                    </button>
-                  </div>
-                  <div class="col-4 text-center single-ticket-wrapper grey-bg">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €19.99
-                    </button>
-                  </div>
-                  <div class="col-4 text-center single-ticket-wrapper">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €29.99
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row time-row align-items-center">
-              <div class="col-3">
-                17:15
-                <span class="arrow"></span>
-                18:20
-              </div>
-              <div class="col">
-                <div class="row">
-                  <div class="col-4 text-center single-ticket-wrapper">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €9.99
-                    </button>
-                  </div>
-                  <div class="col-4 text-center single-ticket-wrapper grey-bg">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €19.99
-                    </button>
-                  </div>
-                  <div class="col-4 text-center single-ticket-wrapper">
-                    <button class="single-ticket align-items-center justify-content-center d-flex">
-                      €29.99
+                    <button v-else>
+                      No tickets
                     </button>
                   </div>
                 </div>
@@ -184,6 +125,7 @@
   import DiscountCard from './ticketsDiscount.vue';
   import MoreDates from './moreDates.vue';
   import FlightSelector from '../flightSelector/flightSelector.vue';
+  import { bus } from '../../main';
 
   export default {
     components: {
@@ -193,14 +135,35 @@
     },
     data() {
       return {
-        actualFlight: ['123']
+        actualFlight: [],
+        isTicketsShow: false,
+        selectedTicket: '',
+        departureCity: '',
+        destinationCity: '',
+        selectedDate: ''
       }
     },
     methods: {
-      getFlightData(event) {
+      getFlightData(event, departureCity, destinationCity, selectedDate) {
         this.actualFlight = event;
-        console.log(event);
+        this.isTicketsShow = true;
+        this.departureCity = departureCity;
+        this.destinationCity = destinationCity;
+        this.selectedDate = selectedDate;
+
+
+
+        console.log(departureCity);
       }
+    },
+    created() {
+      bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate) => {
+        this.actualFlight = event;
+        this.isTicketsShow = true;
+        this.departureCity = departureCity;
+        this.destinationCity = destinationCity;
+        this.selectedDate = selectedDate;
+      });
     }
   }
 </script>

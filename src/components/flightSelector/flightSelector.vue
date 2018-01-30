@@ -60,6 +60,7 @@
 <script>
   import axios from 'axios';
   import moment from 'moment';
+  import { bus } from '../../main';
 
   export default {
     data() {
@@ -192,7 +193,8 @@
             }
             this.flights = flightsArray;
             this.$nextTick(() => {
-              this.$emit('selectedflight', flightsArray);
+              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
+              bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata);
             });
           })
           .catch(error => console.log(error));

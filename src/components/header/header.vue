@@ -11,13 +11,13 @@
               Leaving From
             </div>
             <div class="city-airport">
-              Budapest <span class="city-shortname">BUD</span>
+              {{ departureCity }} <span class="city-shortname">{{ departureIata }}</span>
             </div>
           </div>
           <div class="arrows"></div>
           <div class="route route-to">
             <div class="city-airport">
-              Barcelona El Prat <span class="city-shortname">BCN</span>
+              {{ destinationCity }} <span class="city-shortname">{{ destinationIata }}</span>
             </div>
           </div>
         </div>
@@ -37,7 +37,28 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  import { bus } from '../../main';
+
+  export default {
+    data() {
+      return {
+        departureCity: 'Budapest',
+        destinationCity: 'Barcelona El Prat',
+        departureIata: 'BUD',
+        destinationIata: 'BCN'
+      }
+    },
+    created() {
+      bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata) => {
+        this.departureCity = departureCity;
+        this.destinationCity = destinationCity;
+        this.departureIata = departureIata;
+        this.destinationIata = destinationIata;
+      });
+    }
+  }
+</script>
 
 <style lang="scss" scoped>
   @import '../../styles/partials/variables';

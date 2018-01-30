@@ -10,11 +10,12 @@ Vue.prototype.moment = moment;
 
 Vue.use(flatPickr);
 
-
 Vue.use(BootstrapVue);
 
 Vue.component('v-select', vSelect);
 Vue.use(require('vue-moment'));
+
+export const bus = new Vue();
 
 new Vue({
   el: '#app',
