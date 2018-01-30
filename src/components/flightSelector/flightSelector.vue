@@ -14,13 +14,17 @@
       <div class="end-place col-12 col-sm-4">
         <h5>Destination</h5>
         <div class="input-group">
-          <select v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+          <select v-if="localConnections.length < 1" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
             <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
           </select>
+          <select v-else v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+            <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
+            <option v-for="select in localConnections" v-bind:value="select">{{ selectedDestination }}</option>
+          </select>
         </div>
         <div>
-          {{ destinationIata }}
+          {{ selectedDestination }}
         </div>
       </div>
       <div class="end-place col-12 col-sm-4">
@@ -33,7 +37,6 @@
             :placeholder="getToday"
             name="date"
             :disabled="false"
-            :onOpen="datePickerChanged"
           >
           </flat-pickr>
         </div>
@@ -86,6 +89,7 @@
         objectArr: [],
         selectedIata: [],
         inSaved: [],
+        localConnections: [],
         objs: [
           {iata: 'BUD', shortName: 'Budapest'},
           {iata: 'LON', shortName: 'London'}
@@ -120,6 +124,17 @@
       }
     },
     methods: {
+      selectedConn(iata) {
+        let value = this.$ls.get('departure');
+        let vm = this;
+        if (value !== null) {
+          let obj = vm.airports.find(x => x.iata === iata);
+          return obj;
+        } else {
+          let obj = vm.airports.find(x => x.iata === iata);
+          return obj.shortName;
+        }
+      },
       preselect() {
         let value = this.$ls.get('departure');
         let callback = (val, oldVal, uri) => {
@@ -165,10 +180,8 @@
 
           // this.$ls.set('destination', this.selectedDestination, 60 * 60 * 1000);
           let value = this.$ls.get('departure');
-          if (value == null) {
-            let values = [this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate];
-            this.$ls.set('departure', values, 60 * 60 * 1000);
-          }
+          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate];
+          this.$ls.set('departure', values, 60 * 60 * 1000);
       }
     },
     created() {
@@ -200,11 +213,15 @@
       this.$ls.on('departure', callback);
 
       if (value != null) {
-        this.selected = value[0];
-        this.selectedDestination = value[1];
-        this.departureDate = value[3];
+        this.selected = value[0].shortName;
+        this.selectedConnections = value[1];
+        this.localConnections = value[1];
+        this.selectedDestination = value[2];
+        this.departureDate = value[4];
         this.isFirstSelected = true;
-        let url = value[2];
+        let url = value[3];
+
+        console.log(this.selectedConnections);
 
         axios.get(url)
           .then(response => {
