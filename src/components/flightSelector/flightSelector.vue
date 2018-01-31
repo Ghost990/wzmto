@@ -14,14 +14,14 @@
       <div class="end-place col-12 col-sm-4">
         <h5>Destination</h5>
         <div class="input-group">
-          <select v-if="localConnections.length < 1" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+          <select v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
             <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
           </select>
-          <select v-else v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
-            <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
-            <option v-for="select in localConnections" v-bind:value="select">{{ selectedDestination }}</option>
-          </select>
+          <!--<select v-else v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">-->
+            <!--<option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>-->
+            <!--<option v-for="select in localConnections" v-bind:value="select">{{ selectedDestination }}</option>-->
+          <!--</select>-->
         </div>
         <div>
           {{ selectedDestination }}
@@ -217,7 +217,7 @@
         this.selectedConnections = value[1];
         this.localConnections = value[1];
         this.selectedDestination = value[2];
-        this.departureDate = value[4];
+        //this.departureDate = value[4];
         this.isFirstSelected = true;
         let url = value[3];
 
@@ -239,7 +239,7 @@
           })
           .catch(error => console.log(error));
 
-        this.departureDate = value[3];
+        //this.departureDate = value[3];
         console.log(this.departureDate);
       }
     }
