@@ -14,7 +14,7 @@
       <div class="end-place col-12 col-sm-4">
         <h5>Destination</h5>
         <div class="input-group">
-          <select v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+          <select v-if="isLoaded" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
             <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
           </select>
@@ -90,6 +90,7 @@
         selectedIata: [],
         inSaved: [],
         localConnections: [],
+        isLoaded: false,
         objs: [
           {iata: 'BUD', shortName: 'Budapest'},
           {iata: 'LON', shortName: 'London'}
@@ -220,6 +221,10 @@
         //this.departureDate = value[4];
         this.isFirstSelected = true;
         let url = value[3];
+
+        setTimeout(() => {
+          this.isLoaded = true;
+        }, 1000);
 
         console.log(this.selectedConnections);
 
