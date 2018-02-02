@@ -2,7 +2,7 @@
   <div class="flight-selector-card">
     <div class="row">
       <div class="start-place col-12 col-sm-4">
-        <h5>Departure</h5>
+        <h5>Origin</h5>
         <div class="input-group">
           <select id="departureSelect" name="departureSelect" v-model="selected" @change="selectedConnect" class="custom-select">
             <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
@@ -23,24 +23,43 @@
             <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
           </select>
         </div>
-        <div>
-          {{ selectedConnections }}
-        </div>
+        <!--<div>-->
+          <!--{{ selectedConnections }}-->
+        <!--</div>-->
       </div>
       <div class="end-place col-12 col-sm-4">
-        <h5>Date</h5>
-        <div class="input-group">
+        <h5>Departure</h5>
+        <div class="input-group departure-date-select">
           <flat-pickr
             v-model="departureDate"
-            :config="config"
+            :config="configDeparture"
             class="form-control"
             :placeholder="getToday"
             name="date"
             :disabled="false"
+            @on-change="dateChanged"
           >
           </flat-pickr>
         </div>
-        <p>{{ departureDate }}</p>
+        <h5>Return</h5>
+        <div class="input-group return-date-select">
+          <flat-pickr
+            v-model="returnDate"
+            :config="configReturn"
+            class="form-control"
+            :placeholder="getToday"
+            name="date"
+            :disabled="false"
+            @on-change="dateChanged"
+          >
+          </flat-pickr>
+        </div>
+        <!--<p>{{ departureDate }}</p>-->
+        <div class="select-date-back-wrapper d-flex align-items-center justify-content-center">
+          <span class="select-date-back-button">
+            Select Return Date
+          </span>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -65,6 +84,7 @@
         destinationIata: '',
         selectedDestination: 'Please select...',
         departureDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD'),
+        returnDate: '',
         destinationDate: '',
         airports: [],
         flights: [],
@@ -73,7 +93,14 @@
         isLoaded: false,
         date: new Date(),
         // Get more form https://chmln.github.io/flatpickr/options/
-        config: {
+        configDeparture: {
+          wrap: true, // set wrap to true only when using 'input-group'
+          altFormat: 'l, J F Y',
+          altInput: true,
+          dateFormat: 'Y-m-d',
+          defaultDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD')
+        },
+        configReturn: {
           wrap: true, // set wrap to true only when using 'input-group'
           altFormat: 'l, J F Y',
           altInput: true,
@@ -99,11 +126,17 @@
       destinationSelect() {
         let vm = this;
         vm.destinationIata = vm.selectedDestination.iata;
+        vm.departureIata = vm.selected.iata;
       },
       fulls(iata) {
         let vm = this;
         return vm.airports.find(x => x.iata === iata);
 
+      },
+      dateChanged() {
+        let vm = this;
+        vm.destinationIata = vm.selectedDestination.iata;
+        vm.departureIata = vm.selected.iata;
       },
       getFlightDetails(url) {
         url = `https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
@@ -171,22 +204,23 @@
         }, 1000);
 
         console.log(this.selectedConnections);
+        //bus.$emit('selectedflight', flightsArray, this.selected, this.selectedDestination, this.departureDate, this.departureIata, this.destinationIata);
 
-        axios.get(url)
-          .then(response => {
-            const data = response.data;
-            let flightsArray = [];
-            for (let key in data) {
-              const flight = data[key];
-              flightsArray.push(flight);
-            }
-            this.flights = flightsArray;
-            this.$nextTick(() => {
-              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
-              bus.$emit('selectedflight', flightsArray, this.selected, this.selectedDestination, this.departureDate, this.departureIata, this.destinationIata);
-            });
-          })
-          .catch(error => console.log(error));
+        // axios.get(url)
+        //   .then(response => {
+        //     const data = response.data;
+        //     let flightsArray = [];
+        //     for (let key in data) {
+        //       const flight = data[key];
+        //       flightsArray.push(flight);
+        //     }
+        //     this.flights = flightsArray;
+        //     this.$nextTick(() => {
+        //       //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
+        //       bus.$emit('selectedflight', flightsArray, this.selected, this.selectedDestination, this.departureDate, this.departureIata, this.destinationIata);
+        //     });
+        //   })
+        //   .catch(error => console.log(error));
 
         //this.departureDate = value[3];
         console.log(this.departureDate);
@@ -218,6 +252,26 @@
       outline: none !important;
       border-color: $pink;
     }
+  }
+
+  .select-date-back-button {
+    color: $pink;
+    text-transform: uppercase;
+    margin: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  .departure-date-select {
+    margin-bottom: 10px;
+  }
+
+  h5 {
+    font-size: 16px;
+    color: #333333;
+    font-weight: bold;
   }
 
 
