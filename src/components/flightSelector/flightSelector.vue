@@ -14,7 +14,11 @@
       <div class="end-place col-12 col-sm-4">
         <h5>Destination</h5>
         <div class="input-group">
-          <select v-if="isLoaded" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+          <select v-if="localConnections.length < 1" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
+            <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
+            <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
+          </select>
+          <select v-else-if="localConnections.length > 1 && isLoaded" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
             <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
           </select>
@@ -24,7 +28,7 @@
           <!--</select>-->
         </div>
         <div>
-          {{ selectedDestination }}
+          {{ selectedConnections }}
         </div>
       </div>
       <div class="end-place col-12 col-sm-4">
@@ -70,6 +74,7 @@
   export default {
     data() {
       return {
+        hideFirst: false,
         selected: 'Please select...',
         selectedConnections: [],
         departureIata: '',
@@ -224,6 +229,7 @@
 
         setTimeout(() => {
           this.isLoaded = true;
+          this.hideFirst = true;
         }, 1000);
 
         console.log(this.selectedConnections);
