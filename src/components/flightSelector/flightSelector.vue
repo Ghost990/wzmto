@@ -41,18 +41,26 @@
           >
           </flat-pickr>
         </div>
-        <h5>Return</h5>
-        <div class="input-group return-date-select">
-          <flat-pickr
-            v-model="returnDate"
-            :config="configReturn"
-            class="form-control"
-            :placeholder="getToday"
-            name="date"
-            :disabled="false"
-            @on-change="dateChanged"
-          >
-          </flat-pickr>
+        <div>
+          {{ dateSelected }}
+        </div>
+        <div>
+          {{ returnDate }}
+        </div>
+        <div v-if="isDepartureSelected">
+          <h5>Return</h5>
+          <div class="input-group return-date-select">
+            <flat-pickr
+              v-model="returnDate"
+              :config="configReturn"
+              class="form-control"
+              :placeholder="'Select Return Date'"
+              name="date"
+              :disabled="false"
+              @on-open="getReturnMinDate"
+            >
+            </flat-pickr>
+          </div>
         </div>
         <!--<p>{{ departureDate }}</p>-->
         <div class="select-date-back-wrapper d-flex align-items-center justify-content-center">
@@ -86,11 +94,14 @@
         departureDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD'),
         returnDate: '',
         destinationDate: '',
+        dateSelected: '',
         airports: [],
         flights: [],
         isFirstSelected: false,
         localConnections: [],
         isLoaded: false,
+        isDepartureSelected: false,
+        dateSmaller: '',
         date: new Date(),
         // Get more form https://chmln.github.io/flatpickr/options/
         configDeparture: {
@@ -98,15 +109,27 @@
           altFormat: 'l, J F Y',
           altInput: true,
           dateFormat: 'Y-m-d',
-          defaultDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD')
+          defaultDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD'),
+          minDate: "today"
         },
         configReturn: {
           wrap: true, // set wrap to true only when using 'input-group'
           altFormat: 'l, J F Y',
           altInput: true,
-          dateFormat: 'Y-m-d',
-          defaultDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD')
+          dateFormat: 'Y-m-d'
+          // disable: [
+          //   function(date) {
+          //     // return true to disable
+          //     return (date.getDate() < this.);
+          //
+          //   }
+          // ]
         },
+      }
+    },
+    watch: {
+      departureDate() {
+        this.dateChanged();
       }
     },
     computed: {
@@ -115,8 +138,14 @@
         let date = new Date();
         return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
       },
+
     },
     methods: {
+      getReturnMinDate() {
+        let vm = this;
+        console.log(moment(this.dateSelected, 'D').format('D'));
+        return moment(new Date(), 'D').format('D');
+      },
       selectedConnect() {
         let vm = this;
         vm.selectedConnections = vm.selected.connections;
@@ -137,6 +166,12 @@
         let vm = this;
         vm.destinationIata = vm.selectedDestination.iata;
         vm.departureIata = vm.selected.iata;
+        this.isDepartureSelected = true;
+        this.dateSelected = this.departureDate;
+
+        this.configReturn = { minDate: this.dateSelected }
+        // let date = vm.departureDate;
+        // vm.returnDate = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
       },
       getFlightDetails(url) {
         url = `https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
