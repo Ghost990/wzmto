@@ -172,6 +172,7 @@
       },
       getFlightDetails(url) {
         url = `https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
+        console.log(url);
         axios.get(url)
           .then(response => {
             const data = response.data;
@@ -183,7 +184,7 @@
             this.flights = flightsArray;
             this.$nextTick(() => {
               //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
-              bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata);
+              bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             });
           })
           .catch(error => console.log(error));
@@ -191,6 +192,26 @@
           let value = this.$ls.get('departure');
           let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata];
           this.$ls.set('departure', values, 60 * 60 * 1000);
+
+          if (this.isReturnNeeded) {
+            url = `https://mock-air.herokuapp.com/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
+            console.log(url);
+            axios.get(url)
+              .then(response => {
+                const data = response.data;
+                let flightsArray = [];
+                for (let key in data) {
+                  const flight = data[key];
+                  flightsArray.push(flight);
+                }
+                this.flights = flightsArray;
+                this.$nextTick(() => {
+                  //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
+                  bus.$emit('returnSelectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+                });
+              })
+              .catch(error => console.log(error));
+          }
       }
     },
     created() {

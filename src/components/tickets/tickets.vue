@@ -118,6 +118,118 @@
         </div>
       </div>
     </div>
+
+    <div class="row tickets-row" v-if="isReturn">
+      <div class="col-12">
+        <div class="row tickets-header align-items-center">
+          <div class="col-12">
+            <div class="outbound">
+              Return
+            </div>
+            <div class="ticket-route text-center">
+              {{ returnDepartureCity }}
+              <span class="arrow"></span>
+              {{ returnDestinationCity }}
+            </div>
+          </div>
+        </div>
+        <div class="row tickets-dates align-items-center">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+            <span class="arrow arrow-left"></span>
+            <span class="date date-left">
+                {{ returnSelectedDate | moment("subtract", "1 day", "ddd D MMMM") }}
+            </span>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-12 actual-date">
+            {{ returnSelectedDate | moment("dddd, Do MMMM YYYY") }}
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+            <span class="arrow arrow-right"></span>
+            <span class="date date-right">
+                {{ returnSelectedDate | moment("add", "1 day", "ddd D MMMM") }}
+            </span>
+          </div>
+        </div>
+        <div class="row white-bg">
+          <div class="col">
+            <div class="row ticket-categories align-items-center">
+              <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
+                <div class="row">
+                  <div class="col-4 text-center ticket-category-header">
+                    Basic
+                  </div>
+                  <div class="col-4 text-center ticket-category-header grey-bg">
+                    Standard
+                  </div>
+                  <div class="col-4 text-center ticket-category-header">
+                    Plus
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row time-row align-items-center" v-for="flight in returnActualFlight">
+              <div class="col-3">
+                {{ flight.departure | moment("HH:mm") }}
+                <span class="arrow"></span>
+                {{ flight.arrival | moment("HH:mm") }}
+              </div>
+              <div class="col">
+                <div class="row">
+                  <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
+                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0">
+                      €{{ price.price }}
+                    </button>
+                    <button v-else>
+                      No tickets
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row tickets-descriptions align-items-center">
+              <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
+                <div class="row">
+                  <div class="col-4 text-center ticket-category-description">
+                    <div class="title">
+                      Just The Essentials
+                    </div>
+                    <ul class="ticket-description-list list-unstyled">
+                      <li>Flight ticket</li>
+                      <li>1 small cabin bag</li>
+                    </ul>
+                  </div>
+                  <div class="col-4 text-center ticket-category-description grey-bg">
+                    <div class="title">
+                      €2.25 Cheaper in Bundle
+                    </div>
+                    <ul class="ticket-description-list list-unstyled">
+                      <li>Flight ticket</li>
+                      <li>1 small cabin bag</li>
+                      <li>Seat selection</li>
+                    </ul>
+                  </div>
+                  <div class="col-4 text-center ticket-category-description">
+                    <div class="title">
+                      €3.25 Cheaper in Bundle
+                    </div>
+                    <ul class="ticket-description-list list-unstyled">
+                      <li>Flight ticket</li>
+                      <li>1 large cabin bag</li>
+                      <li>1 heavy checked-in bag</li>
+                      <li>+1 small personal item onboard</li>
+                      <li>Seat selection</li>
+                      <li>Flex for flight charges</li>
+                      <li>Priority Boarding</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <wizz-tickets-moredates></wizz-tickets-moredates>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -140,7 +252,17 @@
         selectedTicket: '',
         departureCity: '',
         destinationCity: '',
-        selectedDate: ''
+        selectedDate: '',
+        departureIata: '',
+        destinationIata: '',
+        isReturn: false,
+
+        returnActualFlight: [],
+        returnDepartureCity: '',
+        returnDestinationCity: '',
+        returnSelectedDate: '',
+        returnDepartureIata: '',
+        returnDestinationIata: ''
       }
     },
     methods: {
@@ -157,12 +279,27 @@
       }
     },
     created() {
-      bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate) => {
+      bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
         this.actualFlight = event;
         this.isTicketsShow = true;
         this.departureCity = departureCity;
         this.destinationCity = destinationCity;
         this.selectedDate = selectedDate;
+        this.departureIata = departureIata;
+        this.destinationIata = destinationIata;
+        this.isReturn = isReturn;
+
+      });
+
+      bus.$on('returnSelectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata) => {
+        this.returnActualFlight = event;
+        this.isTicketsShow = true;
+        this.returnDepartureCity = destinationCity;
+        this.returnDestinationCity = departureCity;
+        this.returnSelectedDate = selectedDate;
+        this.returnDepartureIata = departureIata;
+        this.returnDestinationIata = destinationIata;
+
       });
     }
   }

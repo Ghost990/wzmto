@@ -79,6 +79,10 @@
     z-index: -1;
   }
 
+  .white-bg {
+    background: white;
+  }
+
 </style>
 
 
