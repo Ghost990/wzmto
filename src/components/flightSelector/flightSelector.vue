@@ -22,10 +22,6 @@
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
             <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
           </select>
-          <!--<select v-else v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">-->
-            <!--<option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>-->
-            <!--<option v-for="select in localConnections" v-bind:value="select">{{ selectedDestination }}</option>-->
-          <!--</select>-->
         </div>
         <div>
           {{ selectedConnections }}
@@ -46,21 +42,10 @@
         </div>
         <p>{{ departureDate }}</p>
       </div>
-      <br><br>
-      <!--<div>-->
-      <!--{{ flights }}-->
-      <!--</div>-->
-      <div v-for="flight in flights">
-        {{ flight.flightNumber }}
-      </div>
-      <br><br>
-
-      <!--<button @click="getSelectedFlights">SEND</button>-->
     </div>
     <div class="row">
       <div class="col-12 col-sm-6 offset-sm-3">
         <button class="wizz-button wizz-button-primary rounded" @click="getFlightDetails">GET</button>
-        <button class="wizz-button wizz-button-primary rounded" @click="preselect()">data</button>
       </div>
     </div>
   </div>
@@ -74,7 +59,6 @@
   export default {
     data() {
       return {
-        hideFirst: false,
         selected: 'Please select...',
         selectedConnections: [],
         departureIata: '',
@@ -82,24 +66,11 @@
         selectedDestination: 'Please select...',
         departureDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD'),
         destinationDate: '',
-        longList: [],
         airports: [],
-        startFlightSelected: {},
         flights: [],
-        //endFlightSelected: null,
         isFirstSelected: false,
-        findIata: [],
-        savedInIatas: [],
-        dict: [],
-        objectArr: [],
-        selectedIata: [],
-        inSaved: [],
         localConnections: [],
         isLoaded: false,
-        objs: [
-          {iata: 'BUD', shortName: 'Budapest'},
-          {iata: 'LON', shortName: 'London'}
-        ],
         date: new Date(),
         // Get more form https://chmln.github.io/flatpickr/options/
         config: {
@@ -117,39 +88,8 @@
         let date = new Date();
         return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
       },
-      getDateVariant() {
-        let value = this.$ls.get('departure');
-        if (value !== null) {
-          return this.departureDate = value[3];
-        } else {
-          return moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD');
-        }
-      },
-      datePickerChanged() {
-        return alert('changed');
-      }
     },
     methods: {
-      selectedConn(iata) {
-        let value = this.$ls.get('departure');
-        let vm = this;
-        if (value !== null) {
-          let obj = vm.airports.find(x => x.iata === iata);
-          return obj;
-        } else {
-          let obj = vm.airports.find(x => x.iata === iata);
-          return obj.shortName;
-        }
-      },
-      preselect() {
-        let value = this.$ls.get('departure');
-        let callback = (val, oldVal, uri) => {
-          console.log('localStorage change', val);
-        };
-        this.$ls.on('departure', callback);
-        this.selected = value;
-        console.log(value);
-      },
       selectedConnect() {
         let vm = this;
         vm.selectedConnections = vm.selected.connections;
@@ -182,11 +122,9 @@
             });
           })
           .catch(error => console.log(error));
-          // this.$cookie.set('departure', JSON.stringify(this.selected), 1);
 
-          // this.$ls.set('destination', this.selectedDestination, 60 * 60 * 1000);
           let value = this.$ls.get('departure');
-          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate];
+          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata];
           this.$ls.set('departure', values, 60 * 60 * 1000);
       }
     },
