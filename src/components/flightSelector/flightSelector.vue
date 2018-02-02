@@ -167,7 +167,7 @@
         vm.destinationIata = vm.selectedDestination.iata;
         vm.departureIata = vm.selected.iata;
         this.isDepartureSelected = true;
-        this.dateSelected = this.departureDate;
+        this.dateSelected = moment(this.departureDate, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD'),
 
         this.configReturn = { minDate: this.dateSelected }
         // let date = vm.departureDate;
