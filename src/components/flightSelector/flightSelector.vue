@@ -42,12 +42,12 @@
           </flat-pickr>
         </div>
         <div>
-          {{ dateSelected }}
+          {{ departureDate }}
         </div>
         <div>
           {{ returnDate }}
         </div>
-        <div v-if="isDepartureSelected">
+        <div v-if="isReturnNeeded">
           <h5>Return</h5>
           <div class="input-group return-date-select">
             <flat-pickr
@@ -57,14 +57,13 @@
               :placeholder="'Select Return Date'"
               name="date"
               :disabled="false"
-              @on-open="getReturnMinDate"
             >
             </flat-pickr>
           </div>
         </div>
         <!--<p>{{ departureDate }}</p>-->
         <div class="select-date-back-wrapper d-flex align-items-center justify-content-center">
-          <span class="select-date-back-button">
+          <span class="select-date-back-button" @click="selectReturnClicked">
             Select Return Date
           </span>
         </div>
@@ -101,6 +100,7 @@
         localConnections: [],
         isLoaded: false,
         isDepartureSelected: false,
+        isReturnNeeded: false,
         dateSmaller: '',
         date: new Date(),
         // Get more form https://chmln.github.io/flatpickr/options/
@@ -138,13 +138,10 @@
         let date = new Date();
         return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
       },
-
     },
     methods: {
-      getReturnMinDate() {
-        let vm = this;
-        console.log(moment(this.dateSelected, 'D').format('D'));
-        return moment(new Date(), 'D').format('D');
+      selectReturnClicked() {
+        this.isReturnNeeded = true;
       },
       selectedConnect() {
         let vm = this;
@@ -167,9 +164,9 @@
         vm.destinationIata = vm.selectedDestination.iata;
         vm.departureIata = vm.selected.iata;
         this.isDepartureSelected = true;
-        this.dateSelected = moment(this.departureDate, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD'),
+        this.returnDate = moment(this.departureDate, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD'),
 
-        this.configReturn = { minDate: this.dateSelected }
+        this.configReturn = { minDate: this.returnDate }
         // let date = vm.departureDate;
         // vm.returnDate = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD');
       },
