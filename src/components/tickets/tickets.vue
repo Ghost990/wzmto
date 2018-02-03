@@ -233,7 +233,7 @@
       </div>
     </div>
 
-    <wizz-select-backdate></wizz-select-backdate>
+    <wizz-select-backdate v-show="isBackSelectorShow"></wizz-select-backdate>
 
   </section>
 </template>
@@ -264,6 +264,7 @@
         destinationIata: '',
         isReturn: false,
         isTicketSelected: false,
+        isBackSelectorShow: false,
 
         returnActualFlight: [],
         returnDepartureCity: '',
@@ -306,6 +307,7 @@
         this.departureIata = departureIata;
         this.destinationIata = destinationIata;
         this.isReturn = isReturn;
+        this.isBackSelectorShow = true;
       });
 
       bus.$on('returnselectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {

@@ -76,7 +76,7 @@
         this.isReturnNeeded = true;
       },
       getReturnFlights(url) {
-        bus.$emit('selectbackdate', this.this.departureDateSelected);
+        bus.$emit('selectbackdate', this.departureDateSelected);
       },
     },
     created() {
