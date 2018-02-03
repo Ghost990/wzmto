@@ -38,6 +38,7 @@
             </span>
           </div>
         </div>
+        {{ selectedTicket }}
         <div class="row white-bg">
           <div class="col">
             <div class="row ticket-categories align-items-center">
@@ -64,7 +65,7 @@
               <div class="col">
                 <div class="row">
                   <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
-                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0">
+                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">
                       €{{ price.price }}
                     </button>
                     <button v-else>
@@ -175,7 +176,7 @@
               </div>
               <div class="col">
                 <div class="row">
-                  <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
+                  <div class="col-4 text-center single-ticket-wrapper" v-if="flight.remainingTickets > 0" v-for="price in flight.fares">
                     <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0">
                       €{{ price.price }}
                     </button>
@@ -256,6 +257,7 @@
         departureIata: '',
         destinationIata: '',
         isReturn: false,
+        isTicketSelected: false,
 
         returnActualFlight: [],
         returnDepartureCity: '',
@@ -276,6 +278,14 @@
 
 
         console.log(departureCity);
+      },
+      selectTicket(ticket, event) {
+        this.selectedTicket = ticket;
+        console.log(this.selectedTicket.classList);
+        // this.isTicketSelected = !this.isTicketSelected;
+        // let selectedTicket = ticket;
+        //this.selectedTicket.classList.add('selected');
+        event.target.classList.add('selected');
       }
     },
     created() {
@@ -372,8 +382,9 @@
           float: left;
         }
       }
+      /*  Needed to make it smaller, different font different breaking */
       .actual-date {
-        font-size: 18px;
+        font-size: 16px;
       }
     }
     .ticket-categories {
@@ -407,6 +418,10 @@
           cursor: pointer;
           @include transition(transition, 0.5s);
           &:hover {
+            background: $pink;
+            color: white;
+          }
+          &.selected {
             background: $pink;
             color: white;
           }
