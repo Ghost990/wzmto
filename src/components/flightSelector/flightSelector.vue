@@ -101,6 +101,7 @@
         isLoaded: false,
         isDepartureSelected: false,
         isReturnNeeded: false,
+        isBackSelected: false,
         dateSmaller: '',
         date: new Date(),
         // Get more form https://chmln.github.io/flatpickr/options/
@@ -185,6 +186,7 @@
             this.$nextTick(() => {
               //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
               bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+              bus.$emit('returnselecteddate', this.departureDate);
             });
           })
           .catch(error => console.log(error));
@@ -207,7 +209,7 @@
                 this.flights = flightsArray;
                 this.$nextTick(() => {
                   //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
-                  bus.$emit('returnSelectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+                  bus.$emit('returnselectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
                 });
               })
               .catch(error => console.log(error));
@@ -278,6 +280,35 @@
         //this.departureDate = value[3];
         console.log(this.departureDate);
       }
+
+      bus.$on('selectbackdate', (event) => {
+        this.returnDate = event;
+        this.isReturnNeeded = true;
+        this.isBackSelected = true;
+
+        let url = `https://mock-air.herokuapp.com/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
+        axios.get(url)
+          .then(response => {
+            const data = response.data;
+            let flightsArray = [];
+            for (let key in data) {
+              const flight = data[key];
+              flightsArray.push(flight);
+            }
+            this.flights = flightsArray;
+            this.$nextTick(() => {
+              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
+              bus.$emit('returnselectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+            });
+          })
+          .catch(error => console.log(error));
+
+        console.log(url);
+
+      });
+
+
+
     }
   }
 </script>

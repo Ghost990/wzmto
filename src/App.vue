@@ -63,11 +63,15 @@
     max-width: 500px;
     width: 100%;
     cursor: pointer;
+    @include transition(transition, 0.5s);
     &.wizz-button-primary {
       background: $blue;
     }
     &.wizz-button-secondary {
       background: $pink;
+    }
+    &:hover {
+      box-shadow: 0px 15px 25px 0px rgba(0, 0, 0, 0.1);
     }
   }
 

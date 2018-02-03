@@ -68,7 +68,7 @@
                     <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">
                       €{{ price.price }}
                     </button>
-                    <button v-else>
+                    <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
                       No tickets
                     </button>
                   </div>
@@ -151,6 +151,7 @@
             </span>
           </div>
         </div>
+        {{ returnSelectedTicket }}
         <div class="row white-bg">
           <div class="col">
             <div class="row ticket-categories align-items-center">
@@ -177,10 +178,10 @@
               <div class="col">
                 <div class="row">
                   <div class="col-4 text-center single-ticket-wrapper" v-if="flight.remainingTickets > 0" v-for="price in flight.fares">
-                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0">
+                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="returnSelectedTicket" @click="returnSelectTicket(price, $event)">
                       €{{ price.price }}
                     </button>
-                    <button v-else>
+                    <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
                       No tickets
                     </button>
                   </div>
@@ -231,6 +232,9 @@
         </div>
       </div>
     </div>
+
+    <wizz-select-backdate></wizz-select-backdate>
+
   </section>
 </template>
 
@@ -238,13 +242,15 @@
   import DiscountCard from './ticketsDiscount.vue';
   import MoreDates from './moreDates.vue';
   import FlightSelector from '../flightSelector/flightSelector.vue';
+  import SelectBackDate from './selectBackDates.vue';
   import { bus } from '../../main';
 
   export default {
     components: {
       'wizz-discounts': DiscountCard,
       'wizz-tickets-moredates': MoreDates,
-      'wizz-flight-selector': FlightSelector
+      'wizz-flight-selector': FlightSelector,
+      'wizz-select-backdate': SelectBackDate
     },
     data() {
       return {
@@ -264,7 +270,8 @@
         returnDestinationCity: '',
         returnSelectedDate: '',
         returnDepartureIata: '',
-        returnDestinationIata: ''
+        returnDestinationIata: '',
+        returnSelectedTicket: ''
       }
     },
     methods: {
@@ -282,9 +289,10 @@
       selectTicket(ticket, event) {
         this.selectedTicket = ticket;
         console.log(this.selectedTicket.classList);
-        // this.isTicketSelected = !this.isTicketSelected;
-        // let selectedTicket = ticket;
-        //this.selectedTicket.classList.add('selected');
+        event.target.classList.add('selected');
+      },
+      returnSelectTicket(ticket, event) {
+        this.returnSelectedTicket = ticket;
         event.target.classList.add('selected');
       }
     },
@@ -298,10 +306,9 @@
         this.departureIata = departureIata;
         this.destinationIata = destinationIata;
         this.isReturn = isReturn;
-
       });
 
-      bus.$on('returnSelectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata) => {
+      bus.$on('returnselectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
         this.returnActualFlight = event;
         this.isTicketsShow = true;
         this.returnDepartureCity = destinationCity;
@@ -309,8 +316,10 @@
         this.returnSelectedDate = selectedDate;
         this.returnDepartureIata = departureIata;
         this.returnDestinationIata = destinationIata;
-
+        this.isReturn = isReturn;
       });
+
+
     }
   }
 </script>
@@ -424,6 +433,14 @@
           &.selected {
             background: $pink;
             color: white;
+          }
+          &.single-ticket-notickets {
+            border: 2px solid #ccc;
+            background: #eee;
+            cursor: not-allowed;
+            &:hover {
+              color: black;
+            }
           }
         }
       }
