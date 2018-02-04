@@ -38,7 +38,7 @@
             </span>
           </div>
         </div>
-        {{ selectedTicket }}
+
         <div class="row white-bg">
           <div class="col">
             <div class="row ticket-categories align-items-center">
@@ -77,7 +77,7 @@
               <!--</div>-->
             <!--</div>-->
 
-            <wizz-tickets-row :departureDate="flight.departure" :flight="flight" v-for="(flight, key) in actualFlight"></wizz-tickets-row>
+            <wizz-tickets-row :key="flight.flightNumber" :departureDate="flight.departure" :flight="flight" v-for="(flight, key) in actualFlight"></wizz-tickets-row>
 
             <div class="row tickets-descriptions align-items-center">
               <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
@@ -326,7 +326,6 @@
         for (let single in singleRow[key]) {
           console.log(single);
         }
-
       }
     },
     created() {
