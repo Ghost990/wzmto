@@ -8,31 +8,50 @@
           </h3>
         </div>
         </div>
-      <div class="row">
-        <div class="col-6">
+      <div class="row departure-date date-row">
+        <div class="col-3">
           <h4>
-            Selected Route
+            Outbound
           </h4>
         </div>
-        <div class="col-6">
-          {{ flight.departure | moment("HH:mm") }} -> {{ flight.arrival | moment("HH:mm") }}
+        <div class="col-3 text-center">
+          {{ flight.departure | moment("HH:mm") }}
+          <span class="arrow"></span>
+          {{ flight.arrival | moment("HH:mm") }}
+        </div>
+        <div class="col-3 text-capitalize text-center">
+          {{ selectedTicket.bundle }} Ticket
+        </div>
+        <div class="col-3 text-center">
+          €{{ selectedTicket.price }}
         </div>
       </div>
-      <div class="row">
-        <div class="col-6">
+      <div class="row return-date date-row">
+        <div class="col-3">
           <h4>
             Return
           </h4>
         </div>
-        <div class="col-6">
-          {{ returnFlight.departure | moment("HH:mm") }} -> {{ returnFlight.arrival | moment("HH:mm") }}
+        <div class="col-3 text-center">
+          {{ returnFlight.departure | moment("HH:mm") }}
+          <span class="arrow"></span>
+          {{ returnFlight.arrival | moment("HH:mm") }}
+        </div>
+        <div class="col-3 text-capitalize text-center">
+          {{ returnSelectedTicket.bundle }} Ticket
+        </div>
+        <div class="col-3 text-center">
+          €{{ returnSelectedTicket.price }}
         </div>
       </div>
-      <div class="row">
-        <div class="col-12">
-          Total:
-          <p>{{ selectedTicket }}</p><br>
-          <p>{{ returnSelectedTicket }}</p>
+      <div class="row date-row font-weight-bold">
+        <div class="col-3">
+          <h4>
+            Total:
+          </h4>
+        </div>
+        <div class="col total">
+          €{{ getTotal }}
         </div>
       </div>
       </div>
@@ -49,10 +68,17 @@
         selectedTicket: '',
 
         returnFlight: '',
-        returnSelectedTicket: ''
+        returnSelectedTicket: '',
+
+        total: ''
       }
     },
     props: ['selectedDepartureDate'],
+    computed: {
+      getTotal() {
+        return this.selectedTicket.price + this.returnSelectedTicket.price;
+      }
+    },
     created() {
       bus.$on('ticketdata', (event, selectedTicket) => {
         this.flight = event;
@@ -72,17 +98,31 @@
   @import "../../styles/bootstrap/bootstrap";
 
   h3 {
-    font-size: 18px;
+    font-size: 24px;
     text-transform: uppercase;
     text-align: center;
   }
 
   h4 {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .summary-row {
     margin-bottom: 30px;
+    font-size: 18px;
+    .date-row {
+      margin: 15px 0;
+    }
+    .total {
+      font-size: 22px;
+    }
+    .arrow {
+      display: inline-block;
+      width: 25px;
+      height: 8px;
+      background: url("../../assets/arrow_dates_small.svg");
+      margin: 0 10px;
+    }
     .summary {
       border-radius: 3px;
       background: white;
@@ -92,7 +132,6 @@
       padding: 25px;
       .summary-main {
         p {
-          font-size: 16px;
           opacity: .6;
         }
       }

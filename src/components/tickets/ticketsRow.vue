@@ -7,7 +7,7 @@
     </div>
     <div class="col">
       <div class="row">
-        <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
+        <div class="col-4 text-center single-ticket-wrapper" v-for="(price) in flight.fares">
           <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">
             €{{ price.price }}
           </button>
