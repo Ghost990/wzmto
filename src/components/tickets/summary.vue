@@ -15,7 +15,8 @@
           </h4>
         </div>
         <div class="col-6">
-          A to B
+          
+          {{ flight.departure | moment("HH:mm") }} -> {{ flight.arrival | moment("HH:mm") }}
         </div>
       </div>
       <div class="row">
@@ -30,7 +31,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          Total: 
+          Total:
         </div>
       </div>
       </div>
@@ -38,7 +39,21 @@
 </template>
 
 <script>
+  import { bus } from '../../main';
 
+  export default {
+    data() {
+      return {
+        flight: ''
+      }
+    },
+    props: ['selectedDepartureDate'],
+    created() {
+      bus.$on('ticketdata', (event) => {
+        this.flight = event;
+      });
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

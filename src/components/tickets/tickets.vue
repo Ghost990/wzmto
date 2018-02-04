@@ -56,25 +56,29 @@
                 </div>
               </div>
             </div>
-            <div class="row time-row align-items-center" v-for="flight in actualFlight">
-              <div class="col-3">
-                {{ flight.departure | moment("HH:mm") }}
-                <span class="arrow"></span>
-                {{ flight.arrival | moment("HH:mm") }}
-              </div>
-              <div class="col">
-                <div class="row">
-                  <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
-                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">
-                      €{{ price.price }}
-                    </button>
-                    <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
-                      No tickets
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!--<div class="row time-row align-items-center" :departureDate="flight.departure" v-for="(flight, key) in actualFlight" style="cursor: pointer;" @click="selectedRow(key)" ref="ticketrow">-->
+              <!--<div class="col-3">-->
+                <!--{{ flight.departure | moment("HH:mm") }}-->
+                <!--<span class="arrow"></span>-->
+                <!--{{ flight.arrival | moment("HH:mm") }}-->
+              <!--</div>-->
+              <!--{{ key }}-->
+              <!--<div class="col">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">-->
+                    <!--<button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">-->
+                      <!--€{{ price.price }}-->
+                    <!--</button>-->
+                    <!--<button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">-->
+                      <!--No tickets-->
+                    <!--</button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <wizz-tickets-row :departureDate="flight.departure" :flight="flight" v-for="(flight, key) in actualFlight"></wizz-tickets-row>
+
             <div class="row tickets-descriptions align-items-center">
               <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
                 <div class="row">
@@ -233,9 +237,11 @@
       </div>
     </div>
 
+    {{ departureDate }}
+
     <wizz-select-backdate v-show="isBackSelectorShow && !isReturn"></wizz-select-backdate>
 
-    <wizz-summary></wizz-summary>
+    <wizz-summary :selectedDepartureDate="departureDate"></wizz-summary>
 
   </section>
 </template>
@@ -246,6 +252,7 @@
   import FlightSelector from '../flightSelector/flightSelector.vue';
   import SelectBackDate from './selectBackDates.vue';
   import Summary from './summary.vue';
+  import TicketsRow from './ticketsRow.vue';
   import { bus } from '../../main';
 
   export default {
@@ -254,10 +261,15 @@
       'wizz-tickets-moredates': MoreDates,
       'wizz-flight-selector': FlightSelector,
       'wizz-select-backdate': SelectBackDate,
-      'wizz-summary': Summary
+      'wizz-summary': Summary,
+      'wizz-tickets-row': TicketsRow
+
     },
+    props: ['departureDate'],
     data() {
       return {
+        ticketRows: [],
+
         actualFlight: [],
         isTicketsShow: false,
         selectedTicket: '',
@@ -299,6 +311,22 @@
       returnSelectTicket(ticket, event) {
         this.returnSelectedTicket = ticket;
         event.target.classList.add('selected');
+      },
+      selectedRow(key) {
+        // let singleRow = this.$refs.ticketrow;
+        // let ticketRows = [];
+        // for (let single in singleRow) {
+        //   let singleTicket = singleRow[single];
+        //   ticketRows.push(singleTicket);
+        // }
+        // this.ticketRows = ticketRows;
+
+        let singleRow = this.$refs.ticketrow;
+
+        for (let single in singleRow[key]) {
+          console.log(single);
+        }
+
       }
     },
     created() {
