@@ -1,14 +1,14 @@
 <template>
   <div class="row time-row align-items-center" @click="busData">
     <div class="col-3">
-      {{ flight.departure | moment("HH:mm") }}
+      {{ returnFlight.departure | moment("HH:mm") }}
       <span class="arrow"></span>
-      {{ flight.arrival | moment("HH:mm") }}
+      {{ returnFlight.arrival | moment("HH:mm") }}
     </div>
     <div class="col">
       <div class="row">
-        <div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">
-          <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">
+        <div class="col-4 text-center single-ticket-wrapper" v-for="price in returnFlight.fares">
+          <button class="single-ticket align-items-center justify-content-center d-flex" v-if="returnFlight.remainingTickets > 0" v-model="selectedTicket" @click="returnSelectTicket(price, $event)">
             €{{ price.price }}
           </button>
           <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
@@ -32,7 +32,7 @@
     },
     methods: {
       busData() {
-        bus.$emit('ticketdata', this.flight, this.selectedTicket);
+        bus.$emit('returnticketdata', this.returnFlight, this.returnSelectedTicket);
       },
       selectTicket(ticket, event) {
         this.selectedTicket = ticket;
@@ -46,7 +46,7 @@
     created() {
 
     },
-    props: ['flight']
+    props: ['returnFlight']
   }
 </script>
 

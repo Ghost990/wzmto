@@ -77,7 +77,7 @@
               <!--</div>-->
             <!--</div>-->
 
-            <wizz-tickets-row :key="flight.flightNumber" :departureDate="flight.departure" :flight="flight" v-for="(flight, key) in actualFlight"></wizz-tickets-row>
+            <wizz-tickets-row :key="flight.flightNumber" :flight="flight" v-for="(flight, key) in actualFlight"></wizz-tickets-row>
 
             <div class="row tickets-descriptions align-items-center">
               <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
@@ -173,25 +173,28 @@
                 </div>
               </div>
             </div>
-            <div class="row time-row align-items-center" v-for="flight in returnActualFlight">
-              <div class="col-3">
-                {{ flight.departure | moment("HH:mm") }}
-                <span class="arrow"></span>
-                {{ flight.arrival | moment("HH:mm") }}
-              </div>
-              <div class="col">
-                <div class="row">
-                  <div class="col-4 text-center single-ticket-wrapper" v-if="flight.remainingTickets > 0" v-for="price in flight.fares">
-                    <button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="returnSelectedTicket" @click="returnSelectTicket(price, $event)">
-                      €{{ price.price }}
-                    </button>
-                    <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
-                      No tickets
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <!--<div class="row time-row align-items-center" v-for="flight in returnActualFlight">-->
+              <!--<div class="col-3">-->
+                <!--{{ flight.departure | moment("HH:mm") }}-->
+                <!--<span class="arrow"></span>-->
+                <!--{{ flight.arrival | moment("HH:mm") }}-->
+              <!--</div>-->
+              <!--<div class="col">-->
+                <!--<div class="row">-->
+                  <!--<div class="col-4 text-center single-ticket-wrapper" v-if="flight.remainingTickets > 0" v-for="price in flight.fares">-->
+                    <!--<button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="returnSelectedTicket" @click="returnSelectTicket(price, $event)">-->
+                      <!--€{{ price.price }}-->
+                    <!--</button>-->
+                    <!--<button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">-->
+                      <!--No tickets-->
+                    <!--</button>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <wizz-tickets-row-return :key="flight.flightNumber" :returnFlight="flight" v-for="(flight, key) in returnActualFlight"></wizz-tickets-row-return>
+
             <div class="row tickets-descriptions align-items-center">
               <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
                 <div class="row">
@@ -253,6 +256,7 @@
   import SelectBackDate from './selectBackDates.vue';
   import Summary from './summary.vue';
   import TicketsRow from './ticketsRow.vue';
+  import TicketsRowReturn from './ticketsRowReturn.vue';
   import { bus } from '../../main';
 
   export default {
@@ -262,7 +266,8 @@
       'wizz-flight-selector': FlightSelector,
       'wizz-select-backdate': SelectBackDate,
       'wizz-summary': Summary,
-      'wizz-tickets-row': TicketsRow
+      'wizz-tickets-row': TicketsRow,
+      'wizz-tickets-row-return': TicketsRowReturn
 
     },
     props: ['departureDate'],
