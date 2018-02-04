@@ -233,7 +233,7 @@
       </div>
     </div>
 
-    <wizz-select-backdate v-show="isBackSelectorShow"></wizz-select-backdate>
+    <wizz-select-backdate v-show="isBackSelectorShow && !isReturn"></wizz-select-backdate>
 
   </section>
 </template>
