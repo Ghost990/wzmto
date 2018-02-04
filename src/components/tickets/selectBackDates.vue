@@ -130,13 +130,6 @@
           color: white;
         }
       }
-      .discounts {
-        margin: 0 30px;
-        .discount {
-          color: #343434;
-          display: block;
-        }
-      }
       .read-more {
         text-transform: uppercase;
         font-weight: bold;

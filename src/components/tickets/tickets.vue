@@ -235,6 +235,8 @@
 
     <wizz-select-backdate v-show="isBackSelectorShow && !isReturn"></wizz-select-backdate>
 
+    <wizz-summary></wizz-summary>
+
   </section>
 </template>
 
@@ -243,6 +245,7 @@
   import MoreDates from './moreDates.vue';
   import FlightSelector from '../flightSelector/flightSelector.vue';
   import SelectBackDate from './selectBackDates.vue';
+  import Summary from './summary.vue';
   import { bus } from '../../main';
 
   export default {
@@ -250,7 +253,8 @@
       'wizz-discounts': DiscountCard,
       'wizz-tickets-moredates': MoreDates,
       'wizz-flight-selector': FlightSelector,
-      'wizz-select-backdate': SelectBackDate
+      'wizz-select-backdate': SelectBackDate,
+      'wizz-summary': Summary
     },
     data() {
       return {
