@@ -35,6 +35,7 @@
       height: 107px;
       padding: 0 20px;
       position: relative;
+      margin-bottom: 20px;
       .discount-fares-button {
         text-transform: uppercase;
         color: $pink;

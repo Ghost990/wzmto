@@ -1,8 +1,10 @@
 <template>
   <section class="col-xl-9 col-lg-9 col-md-9 col-12">
+
     <wizz-flight-selector></wizz-flight-selector>
-    <wizz-discounts v-if="isTicketsShow" v-animate-css="'fadeIn'"></wizz-discounts>
-    <div class="row tickets-row" v-if="isTicketsShow" v-animate-css="'fadeIn'">
+
+    <wizz-discounts v-show="isTicketsShow" v-animate-css="'fadeIn'"></wizz-discounts>
+    <div class="row tickets-row" v-show="isTicketsShow" v-animate-css="'fadeIn'">
       <div class="col-12">
         <div class="row tickets-header align-items-center">
           <div class="col-12">
@@ -227,7 +229,6 @@
   @import "../../styles/bootstrap/bootstrap";
 
   .tickets-row {
-    margin-top: 20px;
     margin-bottom: 35px;
     box-shadow: 0px 15px 25px 0px rgba(0, 0, 0, 0.1);
     border-radius: 0 0 3px 3px;

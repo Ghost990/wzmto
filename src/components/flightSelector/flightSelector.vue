@@ -1,9 +1,10 @@
 <template>
-  <div class="flight-selector-card" v-animate-css="{classes: 'fadeIn', duration: 2000}">
-    <div class="row">
-      <div class="start-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
-        <h5>Origin</h5>
-        <div class="input-group"">
+  <div class="row flight-selector-card" v-animate-css="{classes: 'fadeIn', duration: 2000}">
+    <div class="col-12">
+      <div class="row">
+        <div class="start-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
+          <h5>Origin</h5>
+          <div class="input-group"">
           <select id="departureSelect" name="departureSelect" v-model="selected" @change="selectedConnect" class="custom-select">
             <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
             <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
@@ -24,7 +25,7 @@
           </select>
         </div>
         <!--<div>-->
-          <!--{{ selectedConnections }}-->
+        <!--{{ selectedConnections }}-->
         <!--</div>-->
       </div>
       <div class="end-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
@@ -73,6 +74,7 @@
       <div class="col-12 col-sm-6 offset-sm-3">
         <button class="wizz-button wizz-button-primary rounded" @click="getFlightDetails">GET</button>
       </div>
+    </div>
     </div>
   </div>
 </template>
