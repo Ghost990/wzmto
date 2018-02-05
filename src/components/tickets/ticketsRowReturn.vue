@@ -1,19 +1,21 @@
 <template>
-  <div class="row time-row align-items-center" @click="busData">
-    <div class="col-3">
-      {{ returnFlight.departure | moment("HH:mm") }}
-      <span class="arrow"></span>
-      {{ returnFlight.arrival | moment("HH:mm") }}
-    </div>
-    <div class="col">
-      <div class="row">
-        <div class="col-4 text-center single-ticket-wrapper" v-for="price in returnFlight.fares">
-          <button class="single-ticket align-items-center justify-content-center d-flex" v-if="returnFlight.remainingTickets > 0" v-model="selectedTicket" @click="returnSelectTicket(price, $event)">
-            €{{ price.price }}
-          </button>
-          <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
-            No tickets
-          </button>
+  <div>
+    <div class="row time-row align-items-center" @click="busData(flight)" v-for="(flight, key) in returnFlights" :key="flight.flightNumber">
+      <div class="col-3">
+        {{ flight.departure | moment("HH:mm") }}
+        <span class="arrow"></span>
+        {{ flight.arrival | moment("HH:mm") }}
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col-4 text-center single-ticket-wrapper" v-for="(price, key) in flight.fares">
+            <button :class="{'selected': returnSelectedTicket === price}" class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="returnSelectedTicket" @click="returnSelectTicket(price, $event, key)">
+              €{{ price.price }}
+            </button>
+            <button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">
+              No tickets
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -27,16 +29,14 @@
     data() {
       return {
         selectedTicket: '',
-        returnSelectedTicket: ''
+        returnSelectedTicket: '',
+        returnSelectedFlight: ''
       }
     },
     methods: {
-      busData() {
-        bus.$emit('returnticketdata', this.returnFlight, this.returnSelectedTicket);
-      },
-      selectTicket(ticket, event) {
-        this.selectedTicket = ticket;
-        event.target.classList.add('selected');
+      busData(flight) {
+        this.returnSelectedFlight = flight;
+        bus.$emit('returnticketdata', this.returnSelectedFlight, this.returnSelectedTicket);
       },
       returnSelectTicket(ticket, event) {
         this.returnSelectedTicket = ticket;
@@ -46,7 +46,7 @@
     created() {
 
     },
-    props: ['returnFlight']
+    props: ['returnFlights']
   }
 </script>
 

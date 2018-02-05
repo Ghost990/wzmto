@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ selectedFlight }}
     <div class="row time-row align-items-center" @click="busData(flight)" v-for="(flight, key) in flights" :key="flight.flightNumber">
       <div class="col-3">
         {{ flight.departure | moment("HH:mm") }}
@@ -53,18 +52,7 @@
       }
     },
     created() {
-      bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
-        this.actualFlight = event;
-        this.isTicketsShow = true;
-        this.departureCity = departureCity;
-        this.destinationCity = destinationCity;
-        this.selectedDate = selectedDate;
-        this.departureIata = departureIata;
-        this.destinationIata = destinationIata;
-        this.isReturn = isReturn;
-        this.isBackSelectorShow = true;
-        console.log(event);
-      });
+
     },
     props: ['flights']
   }

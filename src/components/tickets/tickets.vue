@@ -193,7 +193,7 @@
               <!--</div>-->
             <!--</div>-->
 
-            <wizz-tickets-row-return :key="flight.flightNumber" :returnFlight="flight" v-for="(flight, key) in returnActualFlight"></wizz-tickets-row-return>
+            <wizz-tickets-row-return :returnFlights="returnActualFlight"></wizz-tickets-row-return>
 
             <div class="row tickets-descriptions align-items-center">
               <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
