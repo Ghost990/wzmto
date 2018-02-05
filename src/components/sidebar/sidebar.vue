@@ -102,14 +102,14 @@
       </div>
     </div>
     <div class="row total-row no-gutters">
-      <button class="total-button align-items-center d-flex">
-                                  <span class="col text-left">
-                                      Total
-                                  </span>
+      <div class="total-button align-items-center d-flex">
+        <span class="col text-left">
+            Total
+        </span>
         <span class="col text-right">
-                                      123
-                                  </span>
-      </button>
+            €{{ isTicketSelected ? getTotal : 0 }}
+        </span>
+      </div>
     </div>
     <div class="row sidebar-section no-gutters">
       <div class="col sidebar-wrap">
@@ -133,7 +133,7 @@
             Total
           </div>
           <div class="col text-right">
-            €182
+            €{{ isTicketSelected ? getTotal : 0 }}
           </div>
         </div>
         <div class="row total-oldprice no-gutters">
@@ -141,7 +141,7 @@
             Original Price
           </div>
           <div class="col text-right">
-            €226
+            €{{ isTicketSelected ? getOriginalPrice : 0 }}
           </div>
         </div>
       </div>
@@ -154,7 +154,54 @@
   </section>
 </template>
 
-<script></script>
+<script>
+  import { bus } from '../../main';
+
+  export default {
+    data() {
+      return {
+        selectedTicket: '',
+        returnSelectedTicket: '',
+        isReturnTicketSelected: false,
+        isTicketSelected: false,
+        total: '0'
+      }
+    },
+    computed: {
+      getTotal() {
+        if (this.isReturnTicketSelected) {
+          return this.selectedTicket.price + this.returnSelectedTicket.price;
+        } else {
+          return this.selectedTicket.price
+        }
+      },
+      getOriginalPrice() {
+        if (this.isReturnTicketSelected) {
+          return Math.floor(((this.selectedTicket.price + this.returnSelectedTicket.price) * 1.195));
+        } else {
+          return Math.floor(this.selectedTicket.price * 1.195);
+        }
+      }
+    },
+    created() {
+      bus.$on('ticketdata', (event, selectedTicket, isTicketSelected) => {
+        this.flight = event;
+        this.selectedTicket = selectedTicket;
+        this.isTicketSelected = isTicketSelected;
+      });
+
+      bus.$on('returnticketdata', (event, returnSelectedTicket, isReturnSelected) => {
+        this.isReturnTicketSelected = isReturnSelected;
+        this.returnFlight = event;
+        this.returnSelectedTicket = returnSelectedTicket;
+      });
+
+
+
+
+    }
+  }
+</script>
 
 <style lang="scss" scoped>
   @import "../../styles/partials/variables";
@@ -199,7 +246,7 @@
         border: none;
         @include transition(transition, 0.5s);
         span {
-          padding: 0 10px;
+          padding: 0 15px;
         }
         &:hover {
           box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);

@@ -66,12 +66,14 @@
     @include transition(transition, 0.5s);
     &.wizz-button-primary {
       background: $blue;
+      border: $blue;
     }
     &.wizz-button-secondary {
       background: $pink;
+      border: $pink;
     }
     &:hover {
-      box-shadow: 0px 15px 25px 0px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.4);
     }
   }
 
