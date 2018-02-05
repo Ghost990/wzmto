@@ -7,7 +7,7 @@
         {{ flight.flightNumber }}
       </span>
     </div>
-    <div class="row tickets-row" v-if="isTicketsShow">
+    <div class="row tickets-row" v-if="isTicketsShow" v-animate-css="'fadeIn'">
       <div class="col-12">
         <div class="row tickets-header align-items-center">
           <div class="col-12">
@@ -124,7 +124,7 @@
       </div>
     </div>
 
-    <div class="row tickets-row" v-if="isReturn">
+    <div class="row tickets-row" v-if="isReturn" v-animate-css="'fadeIn'">
       <div class="col-12">
         <div class="row tickets-header align-items-center">
           <div class="col-12">
@@ -244,7 +244,7 @@
 
     <wizz-select-backdate v-show="isBackSelectorShow && !isReturn"></wizz-select-backdate>
 
-    <wizz-summary :selectedDepartureDate="departureDate"></wizz-summary>
+    <wizz-summary v-animate-css="'fadeIn'" :selectedDepartureDate="departureDate"></wizz-summary>
 
   </section>
 </template>

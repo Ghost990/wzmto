@@ -1,9 +1,9 @@
 <template>
-  <div class="flight-selector-card">
+  <div class="flight-selector-card" v-animate-css="{classes: 'fadeIn', duration: 2000}">
     <div class="row">
-      <div class="start-place col-12 col-sm-4">
+      <div class="start-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
         <h5>Origin</h5>
-        <div class="input-group">
+        <div class="input-group"">
           <select id="departureSelect" name="departureSelect" v-model="selected" @change="selectedConnect" class="custom-select">
             <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
             <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
@@ -11,7 +11,7 @@
         </div>
         <p>{{ selected.shortName }}</p>
       </div>
-      <div class="end-place col-12 col-sm-4">
+      <div class="end-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
         <h5>Destination</h5>
         <div class="input-group">
           <select v-if="localConnections.length < 1" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
@@ -27,7 +27,7 @@
           <!--{{ selectedConnections }}-->
         <!--</div>-->
       </div>
-      <div class="end-place col-12 col-sm-4">
+      <div class="end-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
         <h5>Departure</h5>
         <div class="input-group departure-date-select">
           <flat-pickr
@@ -47,7 +47,7 @@
         <div>
           {{ returnDate }}
         </div>
-        <div v-if="isReturnNeeded">
+        <div v-if="isReturnNeeded" v-animate-css="'fadeIn'">
           <h5>Return</h5>
           <div class="input-group return-date-select">
             <flat-pickr
@@ -69,7 +69,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
       <div class="col-12 col-sm-6 offset-sm-3">
         <button class="wizz-button wizz-button-primary rounded" @click="getFlightDetails">GET</button>
       </div>

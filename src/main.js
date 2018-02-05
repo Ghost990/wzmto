@@ -7,6 +7,9 @@ import 'flatpickr/dist/flatpickr.css';
 import moment from 'moment';
 import VueCookie from 'vue-cookie';
 import VueLocalStorage from 'vue-ls';
+import VAnimateCss from 'v-animate-css';
+
+Vue.use(VAnimateCss);
 
 Vue.use(VueLocalStorage);
 
