@@ -156,6 +156,11 @@
         let vm = this;
         vm.destinationIata = vm.selectedDestination.iata;
         vm.departureIata = vm.selected.iata;
+        let value = this.$ls.get('departure');
+        if (value !== null) {
+          vm.selected = value[0];
+        }
+
       },
       fulls(iata) {
         let vm = this;
