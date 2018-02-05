@@ -26,7 +26,7 @@
           €{{ selectedTicket.price }}
         </div>
       </div>
-      <div class="row return-date date-row">
+      <div class="row return-date date-row" v-if="isReturnTicketSelected">
         <div class="col-3">
           <h4>
             Return
@@ -69,6 +69,7 @@
 
         returnFlight: '',
         returnSelectedTicket: '',
+        isReturnTicketSelected: false,
 
         total: ''
       }
@@ -76,7 +77,11 @@
     props: ['selectedDepartureDate'],
     computed: {
       getTotal() {
-        return this.selectedTicket.price + this.returnSelectedTicket.price;
+        if (this.isReturnTicketSelected) {
+          return this.selectedTicket.price + this.returnSelectedTicket.price;
+        } else {
+          return this.selectedTicket.price
+        }
       }
     },
     created() {
@@ -85,7 +90,8 @@
         this.selectedTicket = selectedTicket;
       });
 
-      bus.$on('returnticketdata', (event, returnSelectedTicket) => {
+      bus.$on('returnticketdata', (event, returnSelectedTicket, isReturnSelected) => {
+        this.isReturnTicketSelected = isReturnSelected;
         this.returnFlight = event;
         this.returnSelectedTicket = returnSelectedTicket;
       });

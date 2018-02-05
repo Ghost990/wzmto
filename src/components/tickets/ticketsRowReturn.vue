@@ -30,15 +30,17 @@
       return {
         selectedTicket: '',
         returnSelectedTicket: '',
-        returnSelectedFlight: ''
+        returnSelectedFlight: '',
+        returnTicketSelected: false
       }
     },
     methods: {
       busData(flight) {
         this.returnSelectedFlight = flight;
-        bus.$emit('returnticketdata', this.returnSelectedFlight, this.returnSelectedTicket);
+        bus.$emit('returnticketdata', this.returnSelectedFlight, this.returnSelectedTicket, this.returnTicketSelected);
       },
       returnSelectTicket(ticket, event) {
+        this.returnTicketSelected = true;
         this.returnSelectedTicket = ticket;
         event.target.classList.add('selected');
       }

@@ -242,9 +242,9 @@
 
     {{ departureDate }}
 
-    <wizz-select-backdate v-show="isBackSelectorShow && !isReturn"></wizz-select-backdate>
+    <wizz-select-backdate v-show="isBackSelectorShow && !isReturn" v-animate-css="'fadeIn'"></wizz-select-backdate>
 
-    <wizz-summary v-animate-css="'fadeIn'" :selectedDepartureDate="departureDate"></wizz-summary>
+    <wizz-summary v-show="isTicketSelected" v-animate-css="'fadeIn'" :selectedDepartureDate="departureDate"></wizz-summary>
 
   </section>
 </template>
@@ -293,7 +293,8 @@
         returnSelectedDate: '',
         returnDepartureIata: '',
         returnDestinationIata: '',
-        returnSelectedTicket: ''
+        returnSelectedTicket: '',
+        isReturnTicketSelected: false
       }
     },
     methods: {
@@ -357,6 +358,9 @@
         this.isReturn = isReturn;
       });
 
+      bus.$on('ticketdata', (event, selectedTicket, isOutboundSelected) => {
+        this.isTicketSelected = isOutboundSelected;
+      });
 
     }
   }
