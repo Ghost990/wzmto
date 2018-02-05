@@ -8,6 +8,9 @@ import moment from 'moment';
 import VueCookie from 'vue-cookie';
 import VueLocalStorage from 'vue-ls';
 import VAnimateCss from 'v-animate-css';
+import vOutsideEvents from 'vue-outside-events'
+
+Vue.use(vOutsideEvents);
 
 Vue.use(VAnimateCss);
 

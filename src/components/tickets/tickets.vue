@@ -77,7 +77,7 @@
               <!--</div>-->
             <!--</div>-->
 
-            <wizz-tickets-row :key="flight.flightNumber" :flight="flight" v-for="(flight, key) in actualFlight"></wizz-tickets-row>
+            <wizz-tickets-row :flights="actualFlight"></wizz-tickets-row>
 
             <div class="row tickets-descriptions align-items-center">
               <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
