@@ -4,9 +4,9 @@
       <div class="row">
         <div class="start-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
           <h5>Origin</h5>
-          <div class="input-group"">
+          <div class="input-group">
           <select id="departureSelect" name="departureSelect" v-model="selected" @change="selectedConnect" class="custom-select">
-            <option v-once disabled :selected="selected" :value="selected">{{ selected }}</option>
+            <option v-once disabled :selected="selected" :value="selected">{{secondSelected ? selected.shortName : selected }}</option>
             <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
           </select>
         </div>
@@ -96,6 +96,8 @@
         returnDate: '',
         destinationDate: '',
         dateSelected: '',
+        secondSelected: false,
+        secondSelectName: '',
         airports: [],
         flights: [],
         isFirstSelected: false,
@@ -133,7 +135,8 @@
     watch: {
       departureDate() {
         this.dateChanged();
-      }
+      },
+
     },
     computed: {
       getToday() {
@@ -159,8 +162,9 @@
         let value = this.$ls.get('departure');
         if (value !== null) {
           vm.selected = value[0];
+          vm.secondSelected = true;
+          vm.secondSelectName = value[7];
         }
-
       },
       fulls(iata) {
         let vm = this;
@@ -199,7 +203,7 @@
           .catch(error => console.log(error));
 
           let value = this.$ls.get('departure');
-          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata];
+          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName];
           this.$ls.set('departure', values, 60 * 60 * 1000);
 
           if (this.isReturnNeeded) {
@@ -252,12 +256,13 @@
       this.$ls.on('departure', callback);
 
       if (value != null) {
-        this.selected = value[0].shortName;
+        this.selected = value[0];
         this.selectedConnections = value[1];
         this.localConnections = value[1];
         this.selectedDestination = value[2];
         //this.departureDate = value[4];
         this.isFirstSelected = true;
+        this.secondSelected = true;
         let url = value[3];
 
         setTimeout(() => {

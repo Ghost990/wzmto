@@ -22,16 +22,16 @@
           <div class="col-12 col-sm-3">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
-                {{ selectedDate | moment("subtract", "1 day", "ddd D MMMM") }}
+                {{ moment(selectedDate, 'YYYY-MM-DD').subtract(1, 'day').format('ddd D MMMM') }}
             </span>
           </div>
           <div class="col-12 col-sm-6 actual-date">
-            {{ selectedDate | moment("dddd, Do MMMM YYYY") }}
+            {{ moment(selectedDate, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY') }}
           </div>
           <div class="col-12 col-sm-3">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
-                {{ selectedDate | moment("add", "1 day", "ddd D MMMM") }}
+                {{ moment(selectedDate, 'YYYY-MM-DD').add(1, 'day').format('ddd D MMMM') }}
             </span>
           </div>
         </div>
@@ -82,16 +82,16 @@
           <div class="col-12 col-sm-3">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
-                {{ returnSelectedDate | moment("subtract", "1 day", "ddd D MMMM") }}
+                {{ moment(returnSelectedDate, 'YYYY-MM-DD').subtract(1, 'day').format('ddd D MMMM') }}
             </span>
           </div>
           <div class="col-12 col-sm-6 actual-date">
-            {{ returnSelectedDate | moment("dddd, Do MMMM YYYY") }}
+            {{ moment(returnSelectedDate, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY') }}
           </div>
           <div class="col-12 col-sm-3">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
-                {{ returnSelectedDate | moment("add", "1 day", "ddd D MMMM") }}
+                {{ moment(returnSelectedDate, 'YYYY-MM-DD').add(1, 'day').format('ddd D MMMM') }}
             </span>
           </div>
         </div>
@@ -141,6 +141,7 @@
   import TicketsRowReturn from './ticketsRowReturn.vue';
   import TicketsDescriptions from './ticketsDescriptions.vue';
   import { bus } from '../../main';
+  import moment from 'moment';
 
   export default {
     components: {

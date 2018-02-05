@@ -18,9 +18,9 @@
                 {{ departureCity }} <span class="arrow"></span> {{ destinationCity }}
             </div>
             <div class="col-3 text-center">
-              {{ flight.departure | moment("HH:mm") }}
+              {{ moment(flight.departure).format('HH:mm') }}
               <span class="arrow"></span>
-              {{ flight.arrival | moment("HH:mm") }}
+              {{ moment(flight.arrival).format('HH:mm') }}
             </div>
             <div class="col-3 text-capitalize text-center">
               {{ selectedTicket.bundle }} Ticket
@@ -42,9 +42,9 @@
               {{ returnDepartureCity }} <span class="arrow"></span> {{ returnDestinationCity }}
             </div>
             <div class="col-3 text-center">
-              {{ returnFlight.departure | moment("HH:mm") }}
+              {{ moment(returnFlight.departure).format('HH:mm') }}
               <span class="arrow"></span>
-              {{ returnFlight.arrival | moment("HH:mm") }}
+              {{ moment(returnFlight.arrival).format('HH:mm') }}
             </div>
             <div class="col-3 text-capitalize text-center">
               {{ returnSelectedTicket.bundle }} Ticket
