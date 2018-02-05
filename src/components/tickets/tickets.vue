@@ -1,12 +1,7 @@
 <template>
   <section class="col-xl-9 col-lg-9 col-md-9 col-12">
     <wizz-flight-selector></wizz-flight-selector>
-    <wizz-discounts v-if="isTicketsShow"></wizz-discounts>
-    <div class="row">
-      <span v-for="flight in actualFlight">
-        {{ flight.flightNumber }}
-      </span>
-    </div>
+    <wizz-discounts v-if="isTicketsShow" v-animate-css="'fadeIn'"></wizz-discounts>
     <div class="row tickets-row" v-if="isTicketsShow" v-animate-css="'fadeIn'">
       <div class="col-12">
         <div class="row tickets-header align-items-center">
@@ -22,16 +17,16 @@
           </div>
         </div>
         <div class="row tickets-dates align-items-center">
-          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+          <div class="col-12 col-sm-3">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
                 {{ selectedDate | moment("subtract", "1 day", "ddd D MMMM") }}
             </span>
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-4 col-12 actual-date">
+          <div class="col-12 col-sm-6 actual-date">
             {{ selectedDate | moment("dddd, Do MMMM YYYY") }}
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+          <div class="col-12 col-sm-3">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
                 {{ selectedDate | moment("add", "1 day", "ddd D MMMM") }}
@@ -56,68 +51,11 @@
                 </div>
               </div>
             </div>
-            <!--<div class="row time-row align-items-center" :departureDate="flight.departure" v-for="(flight, key) in actualFlight" style="cursor: pointer;" @click="selectedRow(key)" ref="ticketrow">-->
-              <!--<div class="col-3">-->
-                <!--{{ flight.departure | moment("HH:mm") }}-->
-                <!--<span class="arrow"></span>-->
-                <!--{{ flight.arrival | moment("HH:mm") }}-->
-              <!--</div>-->
-              <!--{{ key }}-->
-              <!--<div class="col">-->
-                <!--<div class="row">-->
-                  <!--<div class="col-4 text-center single-ticket-wrapper" v-for="price in flight.fares">-->
-                    <!--<button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="selectedTicket" @click="selectTicket(price, $event)">-->
-                      <!--€{{ price.price }}-->
-                    <!--</button>-->
-                    <!--<button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">-->
-                      <!--No tickets-->
-                    <!--</button>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
 
             <wizz-tickets-row :flights="actualFlight"></wizz-tickets-row>
 
-            <div class="row tickets-descriptions align-items-center">
-              <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
-                <div class="row">
-                  <div class="col-4 text-center ticket-category-description">
-                    <div class="title">
-                      Just The Essentials
-                    </div>
-                    <ul class="ticket-description-list list-unstyled">
-                      <li>Flight ticket</li>
-                      <li>1 small cabin bag</li>
-                    </ul>
-                  </div>
-                  <div class="col-4 text-center ticket-category-description grey-bg">
-                    <div class="title">
-                      €2.25 Cheaper in Bundle
-                    </div>
-                    <ul class="ticket-description-list list-unstyled">
-                      <li>Flight ticket</li>
-                      <li>1 small cabin bag</li>
-                      <li>Seat selection</li>
-                    </ul>
-                  </div>
-                  <div class="col-4 text-center ticket-category-description">
-                    <div class="title">
-                      €3.25 Cheaper in Bundle
-                    </div>
-                    <ul class="ticket-description-list list-unstyled">
-                      <li>Flight ticket</li>
-                      <li>1 large cabin bag</li>
-                      <li>1 heavy checked-in bag</li>
-                      <li>+1 small personal item onboard</li>
-                      <li>Seat selection</li>
-                      <li>Flex for flight charges</li>
-                      <li>Priority Boarding</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <wizz-tickets-descriptions></wizz-tickets-descriptions>
+
             <wizz-tickets-moredates></wizz-tickets-moredates>
           </div>
         </div>
@@ -139,16 +77,16 @@
           </div>
         </div>
         <div class="row tickets-dates align-items-center">
-          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+          <div class="col-12 col-sm-3">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
                 {{ returnSelectedDate | moment("subtract", "1 day", "ddd D MMMM") }}
             </span>
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-4 col-12 actual-date">
+          <div class="col-12 col-sm-6 actual-date">
             {{ returnSelectedDate | moment("dddd, Do MMMM YYYY") }}
           </div>
-          <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+          <div class="col-12 col-sm-3">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
                 {{ returnSelectedDate | moment("add", "1 day", "ddd D MMMM") }}
@@ -173,74 +111,16 @@
                 </div>
               </div>
             </div>
-            <!--<div class="row time-row align-items-center" v-for="flight in returnActualFlight">-->
-              <!--<div class="col-3">-->
-                <!--{{ flight.departure | moment("HH:mm") }}-->
-                <!--<span class="arrow"></span>-->
-                <!--{{ flight.arrival | moment("HH:mm") }}-->
-              <!--</div>-->
-              <!--<div class="col">-->
-                <!--<div class="row">-->
-                  <!--<div class="col-4 text-center single-ticket-wrapper" v-if="flight.remainingTickets > 0" v-for="price in flight.fares">-->
-                    <!--<button class="single-ticket align-items-center justify-content-center d-flex" v-if="flight.remainingTickets > 0" v-model="returnSelectedTicket" @click="returnSelectTicket(price, $event)">-->
-                      <!--€{{ price.price }}-->
-                    <!--</button>-->
-                    <!--<button disabled v-else class="single-ticket single-ticket-notickets align-items-center justify-content-center d-flex">-->
-                      <!--No tickets-->
-                    <!--</button>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
 
-            <wizz-tickets-row-return :returnFlights="returnActualFlight"></wizz-tickets-row-return>
+            <wizz-tickets-row-return :returnFlights="returnActualFlight" v-animate-css="'fadeIn'"></wizz-tickets-row-return>
 
-            <div class="row tickets-descriptions align-items-center">
-              <div class="col-xl-9 col-lg-9 col-md-9 col-12 offset-xl-3 offset-lg-3 offset-md-3">
-                <div class="row">
-                  <div class="col-4 text-center ticket-category-description">
-                    <div class="title">
-                      Just The Essentials
-                    </div>
-                    <ul class="ticket-description-list list-unstyled">
-                      <li>Flight ticket</li>
-                      <li>1 small cabin bag</li>
-                    </ul>
-                  </div>
-                  <div class="col-4 text-center ticket-category-description grey-bg">
-                    <div class="title">
-                      €2.25 Cheaper in Bundle
-                    </div>
-                    <ul class="ticket-description-list list-unstyled">
-                      <li>Flight ticket</li>
-                      <li>1 small cabin bag</li>
-                      <li>Seat selection</li>
-                    </ul>
-                  </div>
-                  <div class="col-4 text-center ticket-category-description">
-                    <div class="title">
-                      €3.25 Cheaper in Bundle
-                    </div>
-                    <ul class="ticket-description-list list-unstyled">
-                      <li>Flight ticket</li>
-                      <li>1 large cabin bag</li>
-                      <li>1 heavy checked-in bag</li>
-                      <li>+1 small personal item onboard</li>
-                      <li>Seat selection</li>
-                      <li>Flex for flight charges</li>
-                      <li>Priority Boarding</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <wizz-tickets-descriptions></wizz-tickets-descriptions>
+
             <wizz-tickets-moredates></wizz-tickets-moredates>
           </div>
         </div>
       </div>
     </div>
-
-    {{ departureDate }}
 
     <wizz-select-backdate v-show="isBackSelectorShow && !isReturn" v-animate-css="'fadeIn'"></wizz-select-backdate>
 
@@ -257,6 +137,7 @@
   import Summary from './summary.vue';
   import TicketsRow from './ticketsRow.vue';
   import TicketsRowReturn from './ticketsRowReturn.vue';
+  import TicketsDescriptions from './ticketsDescriptions.vue';
   import { bus } from '../../main';
 
   export default {
@@ -267,7 +148,8 @@
       'wizz-select-backdate': SelectBackDate,
       'wizz-summary': Summary,
       'wizz-tickets-row': TicketsRow,
-      'wizz-tickets-row-return': TicketsRowReturn
+      'wizz-tickets-row-return': TicketsRowReturn,
+      'wizz-tickets-descriptions': TicketsDescriptions
 
     },
     props: ['departureDate'],
@@ -298,17 +180,6 @@
       }
     },
     methods: {
-      getFlightData(event, departureCity, destinationCity, selectedDate) {
-        this.actualFlight = event;
-        this.isTicketsShow = true;
-        this.departureCity = departureCity;
-        this.destinationCity = destinationCity;
-        this.selectedDate = selectedDate;
-
-
-
-        console.log(departureCity);
-      },
       selectTicket(ticket, event) {
         this.selectedTicket = ticket;
         console.log(this.selectedTicket.classList);
@@ -318,21 +189,6 @@
         this.returnSelectedTicket = ticket;
         event.target.classList.add('selected');
       },
-      selectedRow(key) {
-        // let singleRow = this.$refs.ticketrow;
-        // let ticketRows = [];
-        // for (let single in singleRow) {
-        //   let singleTicket = singleRow[single];
-        //   ticketRows.push(singleTicket);
-        // }
-        // this.ticketRows = ticketRows;
-
-        let singleRow = this.$refs.ticketrow;
-
-        for (let single in singleRow[key]) {
-          console.log(single);
-        }
-      }
     },
     created() {
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
@@ -433,9 +289,9 @@
           float: left;
         }
       }
-      /*  Needed to make it smaller, different font different breaking */
       .actual-date {
-        font-size: 16px;
+        font-size: 18px;
+        text-align: center;
       }
     }
     .ticket-categories {
@@ -483,35 +339,6 @@
             &:hover {
               color: black;
             }
-          }
-        }
-      }
-    }
-  }
-
-  .tickets-descriptions {
-    border-bottom: 1px solid $background;
-    .ticket-category-description {
-      padding: 0 8px;
-      color: $dark;
-      .title {
-        font-size: 12px;
-        font-weight: bold;
-        padding: 20px 0;
-        text-transform: uppercase;
-      }
-      .ticket-description-list {
-        li {
-          text-align: left;
-          &:before {
-            background: #919191;
-            border-radius: 50%;
-            content: "";
-            display: inline-block;
-            margin-right: 5px;
-            margin-bottom: 3px;
-            height: 4px;
-            width: 4px;
           }
         }
       }

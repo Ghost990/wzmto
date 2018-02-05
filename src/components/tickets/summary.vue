@@ -9,49 +9,57 @@
         </div>
         </div>
       <div class="row departure-date date-row">
-        <div class="col-3">
-          <h4>
+        <div class="col-12">
+          <h4 class="row-title">
             Outbound
           </h4>
+          <div class="row">
+            <div class="col-5">
+                {{ departureCity }} <span class="arrow"></span> {{ destinationCity }}
+            </div>
+            <div class="col-3 text-center">
+              {{ flight.departure | moment("HH:mm") }}
+              <span class="arrow"></span>
+              {{ flight.arrival | moment("HH:mm") }}
+            </div>
+            <div class="col-3 text-capitalize text-center">
+              {{ selectedTicket.bundle }} Ticket
+            </div>
+            <div class="col-1 text-center">
+              €{{ selectedTicket.price }}
+            </div>
+          </div>
         </div>
-        <div class="col-3 text-center">
-          {{ flight.departure | moment("HH:mm") }}
-          <span class="arrow"></span>
-          {{ flight.arrival | moment("HH:mm") }}
-        </div>
-        <div class="col-3 text-capitalize text-center">
-          {{ selectedTicket.bundle }} Ticket
-        </div>
-        <div class="col-3 text-center">
-          €{{ selectedTicket.price }}
-        </div>
+
       </div>
       <div class="row return-date date-row" v-if="isReturnTicketSelected">
-        <div class="col-3">
-          <h4>
+        <div class="col-12">
+          <h4 class="row-title">
             Return
           </h4>
-        </div>
-        <div class="col-3 text-center">
-          {{ returnFlight.departure | moment("HH:mm") }}
-          <span class="arrow"></span>
-          {{ returnFlight.arrival | moment("HH:mm") }}
-        </div>
-        <div class="col-3 text-capitalize text-center">
-          {{ returnSelectedTicket.bundle }} Ticket
-        </div>
-        <div class="col-3 text-center">
-          €{{ returnSelectedTicket.price }}
+          <div class="row">
+            <div class="col-5">
+              {{ returnDepartureCity }} <span class="arrow"></span> {{ returnDestinationCity }}
+            </div>
+            <div class="col-3 text-center">
+              {{ returnFlight.departure | moment("HH:mm") }}
+              <span class="arrow"></span>
+              {{ returnFlight.arrival | moment("HH:mm") }}
+            </div>
+            <div class="col-3 text-capitalize text-center">
+              {{ returnSelectedTicket.bundle }} Ticket
+            </div>
+            <div class="col-1 text-center">
+              €{{ returnSelectedTicket.price }}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row date-row font-weight-bold">
-        <div class="col-3">
-          <h4>
-            Total:
+      <div class="row date-row">
+        <div class="col-12">
+          <h4 class="font-weight-bold total-summary">
+            Total: €{{ getTotal }}
           </h4>
-        </div>
-        <div class="col total">
-          €{{ getTotal }}
         </div>
       </div>
       </div>
@@ -66,10 +74,14 @@
       return {
         flight: '',
         selectedTicket: '',
+        departureCity: '',
+        destinationCity: '',
 
         returnFlight: '',
         returnSelectedTicket: '',
         isReturnTicketSelected: false,
+        returnDepartureCity: '',
+        returnDestinationCity: '',
 
         total: ''
       }
@@ -95,6 +107,16 @@
         this.returnFlight = event;
         this.returnSelectedTicket = returnSelectedTicket;
       });
+
+      bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
+        this.departureCity = departureCity;
+        this.destinationCity = destinationCity;
+      });
+
+      bus.$on('returnselectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
+        this.returnDepartureCity = destinationCity;
+        this.returnDestinationCity = departureCity;
+      });
     }
   }
 </script>
@@ -118,9 +140,20 @@
     font-size: 18px;
     .date-row {
       margin: 15px 0;
-    }
-    .total {
-      font-size: 22px;
+      .total-summary {
+        font-size: 24px;
+        margin: 5px 0;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+      }
+      &.return-date {
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+      }
+      .row-title {
+        font-weight: bold;
+        color: $blue;
+      }
     }
     .arrow {
       display: inline-block;
