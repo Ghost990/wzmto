@@ -5,7 +5,6 @@ export const APIService = {
   methods: {
     getFlightDetails(url) {
       url = `/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
-      console.log(url);
       axios.get(url)
         .then(response => {
           const data = response.data;
@@ -19,14 +18,13 @@ export const APIService = {
             bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             bus.$emit('returnselecteddate', this.departureDate);
           });
-          let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, flightsArray, this.isReturnNeeded];
+          let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, this.flights, this.isReturnNeeded, this.returnFlights, this.returnDate];
           this.$ls.set('departure', values, 60 * 60 * 1000);
         })
         .catch(error => console.log(error));
 
       if (this.isReturnNeeded) {
         url = `/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
-        console.log(url);
         axios.get(url)
           .then(response => {
             const data = response.data;
@@ -37,12 +35,9 @@ export const APIService = {
             }
             this.returnFlights = returnFlightsArray;
             this.$nextTick(() => {
-              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.departureDate);
               bus.$emit('returnselectedflight', returnFlightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             });
-            this.$ls.clear();
-            let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, this.flights, this.isReturnNeeded, this.returnFlights, this.returnDate];
-            this.$ls.set('departure', values, 60 * 60 * 1000);
+
           })
           .catch(error => console.log(error));
 
@@ -53,19 +48,11 @@ export const APIService = {
         .then(response => {
           const data = response.data;
           let airportsArray = [];
-          let dictArray = [];
-          let connectionsArray = [];
           for (let key in data) {
             const airport = data[key];
             airportsArray.push(airport);
-            let locDict = {
-              iata: airport.iata,
-              shortName: airport.shortName
-            };
-            dictArray.push(locDict);
           }
           this.airports = airportsArray;
-          this.dict = dictArray;
 
         })
         .catch(error => console.log(error));
@@ -91,8 +78,7 @@ export const APIService = {
 
         setTimeout(() => {
           this.isLoaded = true;
-          this.hideFirst = true;
-        }, 1000);
+        }, 1500);
 
 
         axios.get(value[3])

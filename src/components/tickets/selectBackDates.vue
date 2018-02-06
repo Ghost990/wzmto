@@ -63,10 +63,8 @@
         this.returnDate = moment(this.departureDateSelected, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD');
         this.configReturn = { minDate: this.returnDate };
       },
-      getReturnFlights(url) {
+      getReturnFlights() {
         bus.$emit('selectbackdate', this.departureDateSelected);
-        let returnValues = [this.departureDateSelected];
-        localStorage.setItem('return', returnValues);
       },
       dateChanged() {
         this.isReturnNeeded = true;

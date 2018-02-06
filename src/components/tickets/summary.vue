@@ -2,12 +2,8 @@
   <div>
     <b-modal ref="myModalRef" id="myModal">
       <p>
-        We are wishing you the best time on your flight from {{ departureCity }} to {{ destinationCity }}.
+        We are wishing you the best time on your flight.
       </p>
-      <p v-show="isReturnTicketSelected">
-        And the return from {{ returnDepartureCity }} to {{ returnDestinationCity }}.
-      </p>
-
       <div slot="modal-title">
         <h3>Thank You for your order!</h3>
       </div>
