@@ -18,8 +18,9 @@ export const APIService = {
             bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             bus.$emit('returnselecteddate', this.departureDate);
           });
+          this.$ls.clear();
           let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, this.flights, this.isReturnNeeded, this.returnFlights, this.returnDate];
-          this.$ls.set('departure', values, 60 * 60 * 1000);
+          this.$ls.set('departure', values, 24 * 60 * 60 * 1000);
         })
         .catch(error => console.log(error));
 
@@ -36,6 +37,9 @@ export const APIService = {
             this.returnFlights = returnFlightsArray;
             this.$nextTick(() => {
               bus.$emit('returnselectedflight', returnFlightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+              this.$ls.clear();
+              let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, this.flights, this.isReturnNeeded, this.returnFlights, this.returnDate];
+              this.$ls.set('departure', values, 24 * 60 * 60 * 1000);
             });
 
           })
@@ -43,6 +47,7 @@ export const APIService = {
 
       }
     },
+
     loadLocalData() {
       axios.get('/asset/stations')
         .then(response => {
@@ -58,19 +63,12 @@ export const APIService = {
         .catch(error => console.log(error));
 
       let value = this.$ls.get('departure');
-      let callback = (val, oldVal, uri) => {
-        console.log('localStorage change', val);
-      };
-      this.$ls.on('departure', callback);
-
       if (value != null) {
 
         this.localConnections = value[1];
         this.selectedDestination = value[2];
-        //this.departureDate = value[4];
         this.isFirstSelected = true;
         this.secondSelected = true;
-        let url = value[3];
         this.departureDate = value[4];
         this.departureIata = value[5];
         this.destinationIata = value[6];
@@ -108,7 +106,7 @@ export const APIService = {
               const flight = data[key];
               flightsArray.push(flight);
             }
-            this.flights = flightsArray;
+            this.returnFlights = flightsArray;
           })
           .catch(error => console.log(error));
       }
