@@ -2,12 +2,12 @@
   <div class="info-bar">
     <div class="container">
       <div class="row align-items-center inner">
-        <div class="col-xl-1 col-lg-1 col-md-1 col-12">
+        <div class="col-xl-1 col-lg-1 col-md-1 col-12 d-none d-md-block">
           <div class="logo"></div>
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-12 offset-xl-1 offset-lg-1 offset-md-1 routes">
           <div class="route route-from">
-            <div class="leaving-from-text">
+            <div class="leaving-from-text d-none d-md-block">
               Leaving From
             </div>
             <div class="city-airport">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12 offset-xl-1 offset-lg-1 offset-md-1 passengers">
+        <div class="col-md-3 offset-xl-1 offset-lg-1 offset-md-1 passengers d-none d-md-block">
           <div class="passengers-text">
             Passengers
           </div>
@@ -80,6 +80,9 @@
         background: url("../../assets/logo.svg");
       }
       .routes {
+        @include media-breakpoint-down(md) {
+          text-align: center;
+        }
         .route {
           display: inline-block;
           .leaving-from-text {
@@ -88,6 +91,9 @@
           }
           .city-airport {
             font-size: 20px;
+            @include media-breakpoint-down(md) {
+              font-size: 14px;
+            }
             .city-shortname {
               text-transform: uppercase;
               opacity: .6;
@@ -100,6 +106,12 @@
           background: url("../../assets/arrows.svg");
           display: inline-block;
           margin: 0 25px;
+          @include media-breakpoint-down(md) {
+            width: 19px;
+            height: 11px;
+            -webkit-background-size: 19px 11px;
+            background-size: 19px 11px;
+          }
         }
       }
       .passengers {

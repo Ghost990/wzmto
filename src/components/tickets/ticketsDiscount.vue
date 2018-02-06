@@ -47,6 +47,9 @@
         font-weight: bold;
         cursor: pointer;
         @include transition(transition, 0.5s);
+        @include media-breakpoint-down(md) {
+          width: 100%;
+        }
         &:hover {
           background: $pink;
           color: white;
@@ -54,6 +57,9 @@
       }
       .discounts {
         margin: 0 30px;
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
         .discount {
           color: #343434;
           display: block;
@@ -65,6 +71,9 @@
         color: $pink;
         position: absolute;
         right: 20px;
+        @include media-breakpoint-down(md) {
+          display: none;
+        }
         a {
           color: $pink;
           border-bottom: 1px solid $pink;

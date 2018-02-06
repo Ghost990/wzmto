@@ -23,6 +23,11 @@
       text-transform: uppercase;
       display: inline-block;
       margin: 0;
+      @include media-breakpoint-down(md) {
+        font-size: 24px;
+        text-align: center;
+        width: 100%;
+      }
     }
     .flight-icon {
       width: 37px;
@@ -30,6 +35,9 @@
       background: url("../../assets/plane.svg");
       display: inline-block;
       margin-right: 20px;
+      @include media-breakpoint-down(md) {
+        display: none;
+      }
     }
   }
 </style>

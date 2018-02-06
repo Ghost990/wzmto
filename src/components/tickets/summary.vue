@@ -32,18 +32,18 @@
               Outbound
             </h4>
             <div class="row">
-              <div class="col-5">
+              <div class="col-sm-5 col-6">
                 {{ departureCity }} <span class="arrow"></span> {{ destinationCity }}
               </div>
-              <div class="col-3 text-center">
+              <div class="col-sm-3 col-6 text-center">
                 <time>{{ moment(flight.departure).format('HH:mm') }}</time>
                 <span class="arrow"></span>
                 <time>{{ moment(flight.arrival).format('HH:mm') }}</time>
               </div>
-              <div class="col-3 text-capitalize text-center">
+              <div class="col-sm-3 col-6 text-capitalize text-center">
                 {{ selectedTicket.bundle }} Ticket
               </div>
-              <div class="col-1 text-center">
+              <div class="col-sm-1 col-6 text-center">
                 €{{ selectedTicket.price }}
               </div>
             </div>
@@ -56,30 +56,30 @@
               Return
             </h4>
             <div class="row">
-              <div class="col-5">
+              <div class="col-sm-5 col-6">
                 {{ returnDepartureCity }} <span class="arrow"></span> {{ returnDestinationCity }}
               </div>
-              <div class="col-3 text-center">
+              <div class="col-sm-3 col-6 text-center">
                 <time>{{ moment(returnFlight.departure).format('HH:mm') }}</time>
                 <span class="arrow"></span>
                 <time>{{ moment(returnFlight.arrival).format('HH:mm') }}</time>
               </div>
-              <div class="col-3 text-capitalize text-center">
+              <div class="col-sm-3 col-6 text-capitalize text-center">
                 {{ returnSelectedTicket.bundle }} Ticket
               </div>
-              <div class="col-1 text-center">
+              <div class="col-sm-1 col-6 text-center">
                 €{{ returnSelectedTicket.price }}
               </div>
             </div>
           </div>
         </div>
         <div class="row date-row total-row">
-          <div class="col-6">
+          <div class="col-sm-6 col-12">
             <h4 class="font-weight-bold total-summary">
               Total: €{{ getTotal }}
             </h4>
           </div>
-          <div class="col-6">
+          <div class="col-sm-6 col-12">
             <button class="wizz-button wizz-button-secondary rounded" v-b-modal="'myModal'">
               Order & Pay
             </button>
@@ -169,6 +169,15 @@
     font-size: 18px;
   }
 
+  .date-row {
+    .col-6 {
+      @include media-breakpoint-down(md) {
+        text-align: left !important;
+        margin: 15px 0;
+      }
+    }
+  }
+
   .summary-row {
     margin-bottom: 30px;
     font-size: 18px;
@@ -178,6 +187,9 @@
         font-size: 24px;
         margin: 5px 0;
         padding-top: 10px;
+        @include media-breakpoint-down(md) {
+          text-align: center;
+        }
       }
       &.return-date {
         border-top: 1px solid #eee;

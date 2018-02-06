@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row time-row align-items-center" @click="busData(flight)" v-for="(flight, key) in flights" :key="flight.flightNumber">
-      <div class="col-3">
+      <div class="col-12 col-sm-3 ticket-dates">
         <time>{{ moment(flight.departure).format('HH:mm') }}</time>
         <span class="arrow"></span>
         <time>{{ moment(flight.arrival).format('HH:mm') }}</time>
@@ -62,6 +62,16 @@
 
   .time-row {
     border-bottom: 1px solid $background;
+    @include media-breakpoint-down(md) {
+      margin: 10px 0;
+    }
+    .ticket-dates {
+      @include media-breakpoint-down(md) {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+      }
+    }
     .arrow {
       display: inline-block;
       width: 25px;

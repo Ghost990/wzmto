@@ -1,157 +1,162 @@
 <template>
-  <section class="col-xl-3 col-lg-3 col-md-3 col-12 sidebar">
-    <div class="row sidebar-section no-gutters">
-      <div class="col sidebar-wrap">
-        <div class="sidebar-subtitle">
-          <h3 class="subtitle">
-            Flights
-          </h3>
+  <div class="col-xl-3 col-lg-3 col-md-3 col-12 sidebar">
+    <button class="wizz-button wizz-button-primary rounded show-details-trigger d-sm-block d-lg-none d-xl-none d-md-one" data-toggle="collapse" data-target="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+      Show Details
+    </button>
+    <section class="collapse" id="collapseExample">
+      <div class="row sidebar-section no-gutters">
+        <div class="col sidebar-wrap">
+          <div class="sidebar-subtitle">
+            <h3 class="subtitle">
+              Flights
+            </h3>
+          </div>
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Checked-in bags
+            </div>
+            <div class="col-4 item-price text-right">
+              €129
+            </div>
+          </div>
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Return
+            </div>
+            <div class="col-4 item-price text-right">
+              €89
+            </div>
+          </div>
         </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Checked-in bags
+        <div class="divider">
+          <span class="chevron"></span>
+        </div>
+      </div>
+      <div class="row sidebar-section no-gutters">
+        <div class="col sidebar-wrap">
+          <div class="sidebar-subtitle">
+            <h3 class="subtitle">
+              Bundle
+            </h3>
           </div>
-          <div class="col-4 item-price text-right">
-            €129
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Basic
+            </div>
+            <div class="col-4 item-price text-right">
+              €0
+            </div>
           </div>
         </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Return
+        <div class="divider">
+          <span class="chevron"></span>
+        </div>
+      </div>
+      <div class="row sidebar-section no-gutters">
+        <div class="col sidebar-wrap">
+          <div class="sidebar-subtitle">
+            <h3 class="subtitle">
+              Passengers
+            </h3>
           </div>
-          <div class="col-4 item-price text-right">
-            €89
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Cabin bags
+            </div>
+            <div class="col-4 item-price text-right">
+              €10
+            </div>
+          </div>
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Checked-in bags
+            </div>
+            <div class="col-4 item-price text-right">
+              €0
+            </div>
+          </div>
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Seats
+            </div>
+            <div class="col-4 item-price text-right">
+              €0
+            </div>
+          </div>
+        </div>
+        <div class="divider">
+          <span class="chevron"></span>
+        </div>
+      </div>
+      <div class="row sidebar-section no-gutters">
+        <div class="col sidebar-wrap">
+          <div class="sidebar-subtitle">
+            <h3 class="subtitle">
+              Services
+            </h3>
+          </div>
+          <div class="row sidebar-single-row">
+            <div class="col-8 item-name">
+              Priority boarding
+            </div>
+            <div class="col-4 item-price text-right">
+              €15
+            </div>
           </div>
         </div>
       </div>
-      <div class="divider">
-        <span class="chevron"></span>
-      </div>
-    </div>
-    <div class="row sidebar-section no-gutters">
-      <div class="col sidebar-wrap">
-        <div class="sidebar-subtitle">
-          <h3 class="subtitle">
-            Bundle
-          </h3>
-        </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Basic
-          </div>
-          <div class="col-4 item-price text-right">
-            €0
-          </div>
-        </div>
-      </div>
-      <div class="divider">
-        <span class="chevron"></span>
-      </div>
-    </div>
-    <div class="row sidebar-section no-gutters">
-      <div class="col sidebar-wrap">
-        <div class="sidebar-subtitle">
-          <h3 class="subtitle">
-            Passengers
-          </h3>
-        </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Cabin bags
-          </div>
-          <div class="col-4 item-price text-right">
-            €10
-          </div>
-        </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Checked-in bags
-          </div>
-          <div class="col-4 item-price text-right">
-            €0
-          </div>
-        </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Seats
-          </div>
-          <div class="col-4 item-price text-right">
-            €0
-          </div>
-        </div>
-      </div>
-      <div class="divider">
-        <span class="chevron"></span>
-      </div>
-    </div>
-    <div class="row sidebar-section no-gutters">
-      <div class="col sidebar-wrap">
-        <div class="sidebar-subtitle">
-          <h3 class="subtitle">
-            Services
-          </h3>
-        </div>
-        <div class="row sidebar-single-row">
-          <div class="col-8 item-name">
-            Priority boarding
-          </div>
-          <div class="col-4 item-price text-right">
-            €15
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row total-row no-gutters">
-      <div class="total-button align-items-center d-flex">
+      <div class="row total-row no-gutters">
+        <div class="total-button align-items-center d-flex">
         <span class="col text-left">
             Total
         </span>
-        <span class="col text-right">
+          <span class="col text-right">
             €{{ isTicketSelected ? getTotal : 0 }}
         </span>
-      </div>
-    </div>
-    <div class="row sidebar-section no-gutters">
-      <div class="col sidebar-wrap">
-        <div class="sidebar-subtitle">
-          <h3 class="subtitle text-center">
-            Booking & Payment
-          </h3>
         </div>
       </div>
-      <div class="divider"></div>
-    </div>
-    <div class="row sidebar-section discount-section no-gutters">
-      <div class="col sidebar-wrap">
-        <div class="sidebar-subtitle">
-          <h3 class="subtitle text-center">
-            Discount Club Price
-          </h3>
-        </div>
-        <div class="row total-newprice no-gutters">
-          <div class="col text-left">
-            Total
-          </div>
-          <div class="col text-right">
-            €{{ isTicketSelected ? getTotal : 0 }}
+      <div class="row sidebar-section no-gutters">
+        <div class="col sidebar-wrap">
+          <div class="sidebar-subtitle">
+            <h3 class="subtitle text-center">
+              Booking & Payment
+            </h3>
           </div>
         </div>
-        <div class="row total-oldprice no-gutters">
-          <div class="col-8 text-left">
-            Original Price
+        <div class="divider"></div>
+      </div>
+      <div class="row sidebar-section discount-section no-gutters">
+        <div class="col sidebar-wrap">
+          <div class="sidebar-subtitle">
+            <h3 class="subtitle text-center">
+              Discount Club Price
+            </h3>
           </div>
-          <div class="col text-right">
-            €{{ isTicketSelected ? getOriginalPrice : 0 }}
+          <div class="row total-newprice no-gutters">
+            <div class="col text-left">
+              Total
+            </div>
+            <div class="col text-right">
+              €{{ isTicketSelected ? getTotal : 0 }}
+            </div>
+          </div>
+          <div class="row total-oldprice no-gutters">
+            <div class="col-8 text-left">
+              Original Price
+            </div>
+            <div class="col text-right">
+              €{{ isTicketSelected ? getOriginalPrice : 0 }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row join-club align-items-center d-flex">
-      <button class="join-club-button">
-        Join Discount Club
-      </button>
-    </div>
-  </section>
+      <div class="row join-club align-items-center d-flex">
+        <button class="join-club-button">
+          Join Discount Club
+        </button>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -215,6 +220,9 @@
   }
 
   .sidebar {
+    @include media-breakpoint-down(md) {
+      margin-bottom: 15px;
+    }
     .sidebar-section {
       position: relative;
       padding-top: 20px;
@@ -324,5 +332,15 @@
       transform: rotate(45deg);
       margin-top: 2px;
     }
+  }
+
+  .collapse {
+    @include media-breakpoint-up(sm) {
+      display: block;
+    }
+  }
+
+  .show-details-trigger {
+    margin: 15px 0;
   }
 </style>

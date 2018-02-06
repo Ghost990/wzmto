@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="row tickets-dates align-items-center">
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-3 d-none d-md-block">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
                 {{ moment(selectedDate, 'YYYY-MM-DD').subtract(1, 'day').format('ddd D MMMM') }}
@@ -28,7 +28,7 @@
           <div class="col-12 col-sm-6 actual-date">
             {{ moment(selectedDate, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY') }}
           </div>
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-3 d-none d-md-block">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
                 {{ moment(selectedDate, 'YYYY-MM-DD').add(1, 'day').format('ddd D MMMM') }}
@@ -79,7 +79,7 @@
           </div>
         </div>
         <div class="row tickets-dates align-items-center">
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-3 d-none d-md-block">
             <span class="arrow arrow-left"></span>
             <span class="date date-left">
                 {{ moment(returnSelectedDate, 'YYYY-MM-DD').subtract(1, 'day').format('ddd D MMMM') }}
@@ -88,7 +88,7 @@
           <div class="col-12 col-sm-6 actual-date">
             {{ moment(returnSelectedDate, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY') }}
           </div>
-          <div class="col-12 col-sm-3">
+          <div class="col-12 col-sm-3 d-none d-md-block">
             <span class="arrow arrow-right"></span>
             <span class="date date-right">
                 {{ moment(returnSelectedDate, 'YYYY-MM-DD').add(1, 'day').format('ddd D MMMM') }}
@@ -237,6 +237,9 @@
       height: 55px;
       background: #f2f2f2;
       border-radius: 3px 3px 0 0;
+      @include media-breakpoint-down(md) {
+        height: 65px;
+      }
       .outbound {
         float: left;
         font-weight: bold;
@@ -244,6 +247,11 @@
         color: #919191;
         text-transform: uppercase;
         position: absolute;
+        @include media-breakpoint-down(md) {
+          position: relative;
+          width: 100%;
+          text-align: center;
+        }
       }
       .ticket-route {
         font-size: 22px;

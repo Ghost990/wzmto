@@ -64,6 +64,9 @@
     width: 100%;
     cursor: pointer;
     @include transition(transition, 0.5s);
+    @include media-breakpoint-down(md) {
+      min-width: 100%;
+    }
     &.wizz-button-primary {
       background: $blue;
       border: $blue;
