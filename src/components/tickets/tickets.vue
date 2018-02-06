@@ -189,8 +189,18 @@
         this.departureIata = value[5];
         this.destinationIata = value[6];
         this.isTicketsShow = true;
+        this.isReturn = value[9];
+
+        this.returnActualFlight = value[10];
+        this.isTicketsShow = true;
+        this.returnDepartureCity = value[2];
+        this.returnDestinationCity = value[7];
+        this.returnSelectedDate = value[11];
+        this.returnDepartureIata = value[6];
+        this.returnDestinationIata = value[5];
+
       }
-      
+
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
         this.actualFlight = event;
         this.isTicketsShow = true;

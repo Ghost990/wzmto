@@ -97,6 +97,7 @@
         secondSelectName: '',
         airports: [],
         flights: [],
+        returnFlights: [],
         isFirstSelected: false,
         localConnections: [],
         isLoaded: false,
@@ -150,11 +151,7 @@
         vm.destinationIata = vm.selectedDestination.iata;
         vm.departureIata = vm.selected.iata;
         let value = this.$ls.get('departure');
-        if (value !== null) {
-          vm.selected = value[0];
-          vm.secondSelected = true;
-          vm.secondSelectName = value[7];
-        }
+
       },
       fulls(iata) {
         let vm = this;
@@ -173,6 +170,10 @@
 
     },
     created() {
+      let value = this.$ls.get('departure');
+      if (value != null) {
+        this.selected = value[0];
+      }
       this.loadLocalData();
     }
   }

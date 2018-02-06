@@ -65,6 +65,8 @@
       },
       getReturnFlights(url) {
         bus.$emit('selectbackdate', this.departureDateSelected);
+        let returnValues = [this.departureDateSelected];
+        localStorage.setItem('return', returnValues);
       },
       dateChanged() {
         this.isReturnNeeded = true;
