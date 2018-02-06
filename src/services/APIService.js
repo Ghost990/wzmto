@@ -4,7 +4,7 @@ import { bus } from "../main";
 export const APIService = {
   methods: {
     getFlightDetails(url) {
-      url = `https://mock-air.herokuapp.com/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
+      url = `/search?departureStation=${this.departureIata}&arrivalStation=${this.destinationIata}&date=${this.departureDate}`;
       console.log(url);
       axios.get(url)
         .then(response => {
@@ -24,10 +24,8 @@ export const APIService = {
         })
         .catch(error => console.log(error));
 
-
-
       if (this.isReturnNeeded) {
-        url = `https://mock-air.herokuapp.com/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
+        url = `/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
         console.log(url);
         axios.get(url)
           .then(response => {
@@ -51,7 +49,7 @@ export const APIService = {
       }
     },
     loadLocalData() {
-      axios.get('https://mock-air.herokuapp.com/asset/stations')
+      axios.get('/asset/stations')
         .then(response => {
           const data = response.data;
           let airportsArray = [];
@@ -134,7 +132,7 @@ export const APIService = {
         this.isReturnNeeded = true;
         this.isBackSelected = true;
 
-        let url = `https://mock-air.herokuapp.com/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
+        let url = `/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
         axios.get(url)
           .then(response => {
             const data = response.data;
