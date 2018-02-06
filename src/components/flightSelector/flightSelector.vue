@@ -10,18 +10,19 @@
             <option v-for="select in airports" v-bind:value="select">{{ select.shortName }}</option>
           </select>
         </div>
-        <p>{{ selected.shortName }}</p>
       </div>
       <div class="end-place col-12 col-sm-4" v-animate-css="{classes: 'fadeInDown', duration: 1000, delay: 500}">
         <h5>Destination</h5>
         <div class="input-group">
           <select v-if="localConnections.length < 1" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
-            <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
+            <option v-for="select in selectedConnections" v-bind:value="select">{{ getFullNames(select.iata).shortName
+              }}</option>
           </select>
           <select v-else-if="localConnections.length > 1 && isLoaded" v-model="selectedDestination" @change="destinationSelect" class="custom-select" :disabled="!isFirstSelected">
             <option v-once disabled :selected="selectedDestination" :value="selectedDestination">{{ selectedDestination }}</option>
-            <option v-for="select in selectedConnections" v-bind:value="select">{{ fulls(select.iata).shortName }}</option>
+            <option v-for="select in selectedConnections" v-bind:value="select">{{ getFullNames(select.iata).shortName
+              }}</option>
           </select>
         </div>
       </div>
@@ -39,12 +40,6 @@
           >
           </flat-pickr>
         </div>
-        <div>
-          {{ departureDate }}
-        </div>
-        <div>
-          {{ returnDate }}
-        </div>
         <div v-if="isReturnNeeded" v-animate-css="'fadeIn'">
           <h5>Return</h5>
           <div class="input-group return-date-select">
@@ -59,7 +54,6 @@
             </flat-pickr>
           </div>
         </div>
-        <!--<p>{{ departureDate }}</p>-->
         <div class="select-date-back-wrapper d-flex align-items-center justify-content-center">
           <span class="select-date-back-button" @click="selectReturnClicked">
             Select Return Date
@@ -94,7 +88,6 @@
         destinationDate: '',
         dateSelected: '',
         secondSelected: false,
-        secondSelectName: '',
         airports: [],
         flights: [],
         returnFlights: [],
@@ -104,19 +97,16 @@
         isDepartureSelected: false,
         isReturnNeeded: false,
         isBackSelected: false,
-        dateSmaller: '',
         date: new Date(),
-        // Get more form https://chmln.github.io/flatpickr/options/
         configDeparture: {
-          wrap: true, // set wrap to true only when using 'input-group'
+          wrap: true,
           altFormat: 'l, J F Y',
           altInput: true,
           dateFormat: 'Y-m-d',
-          defaultDate: moment('2019-09-09', 'YYYY-MM-DD').format('YYYY-MM-DD'),
           minDate: "today"
         },
         configReturn: {
-          wrap: true, // set wrap to true only when using 'input-group'
+          wrap: true,
           altFormat: 'l, J F Y',
           altInput: true,
           dateFormat: 'Y-m-d'
@@ -131,7 +121,6 @@
     },
     computed: {
       getToday() {
-        let vm = this;
         let date = new Date();
         return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
       },
@@ -153,7 +142,7 @@
         let value = this.$ls.get('departure');
 
       },
-      fulls(iata) {
+      getFullNames(iata) {
         let vm = this;
         return vm.airports.find(x => x.iata === iata);
 
@@ -164,7 +153,6 @@
         vm.departureIata = vm.selected.iata;
         this.isDepartureSelected = true;
         this.returnDate = moment(this.departureDate, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD'),
-
         this.configReturn = { minDate: this.returnDate }
       },
 
@@ -224,7 +212,4 @@
     color: #333333;
     font-weight: bold;
   }
-
-
-
 </style>

@@ -16,10 +16,10 @@ export const APIService = {
           }
           this.flights = flightsArray;
           this.$nextTick(() => {
-            bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+            bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             bus.$emit('returnselecteddate', this.departureDate);
           });
-          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, flightsArray, this.isReturnNeeded];
+          let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, flightsArray, this.isReturnNeeded];
           this.$ls.set('departure', values, 60 * 60 * 1000);
         })
         .catch(error => console.log(error));
@@ -39,11 +39,11 @@ export const APIService = {
             }
             this.returnFlights = returnFlightsArray;
             this.$nextTick(() => {
-              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate);
-              bus.$emit('returnselectedflight', returnFlightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+              //this.$emit('selectedflight', flightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.departureDate);
+              bus.$emit('returnselectedflight', returnFlightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             });
             this.$ls.clear();
-            let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, this.flights, this.isReturnNeeded, this.returnFlights, this.returnDate];
+            let values = [this.selected, this.selectedConnections, this.getFullNames(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, this.flights, this.isReturnNeeded, this.returnFlights, this.returnDate];
             this.$ls.set('departure', values, 60 * 60 * 1000);
           })
           .catch(error => console.log(error));
@@ -145,7 +145,7 @@ export const APIService = {
             }
             this.flights = flightsArray;
             this.$nextTick(() => {
-              bus.$emit('returnselectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
+              bus.$emit('returnselectedflight', flightsArray, this.selected.shortName, this.getFullNames(this.selectedDestination.iata).shortName, this.returnDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             });
           })
           .catch(error => console.log(error));
