@@ -90,7 +90,15 @@
   import { bus } from '../../main';
   import bModal from 'bootstrap-vue/es/components/modal/modal';
 
+  /**
+   * The Summary component.
+   *
+   * @author Zsolt Nagy
+   * @license MIT
+   */
+
   export default {
+    name: 'wizz-summary',
     data() {
       return {
         flight: '',
@@ -109,6 +117,9 @@
     },
     props: ['selectedDepartureDate'],
     computed: {
+      /**
+       * Getting the single or the calculated ticket price.
+       */
       getTotal() {
         if (this.isReturnTicketSelected) {
           return this.selectedTicket.price + this.returnSelectedTicket.price;
@@ -118,10 +129,18 @@
       }
     },
     methods: {
+      /**
+       * Hiding the modal on close.
+       */
       hideModal () {
+        this.$ls.clear();
         this.$refs.myModalRef.hide()
+        location.reload();
       }
     },
+    /**
+     * Listening to EventBus, setting the values accordingly.
+     */
     created() {
       bus.$on('ticketdata', (event, selectedTicket) => {
         this.flight = event;

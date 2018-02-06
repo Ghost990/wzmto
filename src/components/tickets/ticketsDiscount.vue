@@ -21,7 +21,14 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  /**
+   * The Discounts static component.
+   */
+  export default {
+    name: 'wizz-discounts'
+  }
+</script>
 
 <style lang="scss" scoped>
   @import "../../styles/partials/variables";

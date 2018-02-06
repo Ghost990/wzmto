@@ -26,6 +26,7 @@
   import { bus } from '../../main';
 
   export default {
+    name: 'wizz-tickets-row',
     data() {
       return {
         selectedTicket: '',
@@ -34,6 +35,9 @@
       }
     },
     methods: {
+      /**
+       * Setting the selected flight inforations and emitting the data.
+       */
       busData(flight) {
         this.selectedFlight = flight;
         bus.$emit('ticketdata', this.selectedFlight, this.selectedTicket, this.outboundTicketSelected);
@@ -47,6 +51,9 @@
     created() {
 
     },
+    /**
+     * The actual flight informations is passing down from parent as a prop.
+     */
     props: ['flights']
   }
 </script>

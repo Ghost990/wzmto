@@ -25,7 +25,15 @@
 <script>
   import { bus } from '../../main';
 
+  /**
+   * TicketsRowReturn component.
+   *
+   * @author Zsolt Nagy
+   * @license MIT
+   */
+
   export default {
+    name: 'wizz-tickets-row-return',
     data() {
       return {
         returnSelectedTicket: '',
@@ -34,6 +42,9 @@
       }
     },
     methods: {
+      /**
+       * Setting the selected flight inforations and emitting the data.
+       */
       busData(flight) {
         this.returnSelectedFlight = flight;
         bus.$emit('returnticketdata', this.returnSelectedFlight, this.returnSelectedTicket, this.returnTicketSelected);
@@ -44,6 +55,9 @@
         event.target.classList.add('selected');
       }
     },
+    /**
+     * The actual flight informations is passing down from parent as a prop.
+     */
     props: ['returnFlights']
   }
 </script>

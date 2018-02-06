@@ -41,7 +41,12 @@
 </template>
 
 <script>
-
+  /**
+   * The TicketDescriptions static component.
+   */
+  export default {
+    name: 'wizz-tickets-descriptions'
+  }
 </script>
 
 <style lang="scss" scoped>
