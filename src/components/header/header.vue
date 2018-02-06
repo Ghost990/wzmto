@@ -1,5 +1,5 @@
 <template>
-  <div class="info-bar">
+  <nav class="info-bar">
     <div class="container">
       <div class="row align-items-center inner">
         <div class="col-xl-1 col-lg-1 col-md-1 col-12 d-none d-md-block">
@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -56,6 +56,13 @@
         this.departureIata = departureIata;
         this.destinationIata = destinationIata;
       });
+      let value = this.$ls.get('departure');
+      if (value !== null) {
+        this.departureCity = value[7];
+        this.destinationCity = value[2];
+        this.departureIata = value[5];
+        this.destinationIata = value[6];
+      }
     }
   }
 </script>
