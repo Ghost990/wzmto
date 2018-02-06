@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div class="row" v-if="isReturnNeeded" v-animate-css="'fadeIn'">
+      <div class="row" v-if="isReturnNeeded" v-animate-css="animation">
         <div class="col-12 col-sm-6 offset-sm-3">
           <button class="wizz-button wizz-button-primary rounded show-flights" @click="getReturnFlights">
             Show Flights
@@ -51,6 +51,9 @@
           altFormat: 'l, J F Y',
           altInput: true,
           dateFormat: 'Y-m-d'
+        },
+        animation: {
+          classes: 'fadeIn'
         }
       }
     },
@@ -71,6 +74,11 @@
       bus.$on('returnselecteddate', (event) => {
         this.departureDateSelected = event;
       });
+    },
+    beforeDestroy() {
+      this.animation = {
+        classes: 'fadeOut'
+      }
     }
   }
 </script>
