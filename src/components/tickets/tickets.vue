@@ -274,7 +274,7 @@
         .arrow {
           width: 32px;
           height: 11px;
-          background: url("../../assets/arrow_single.svg");
+          background: url("../../assets/img/arrow_single.svg");
           display: inline-block;
           margin: 0 10px;
         }
@@ -290,13 +290,13 @@
         height: 18px;
         cursor: pointer;
         &.arrow-left {
-          background: url("../../assets/arrow_dateselect.svg");
+          background: url("../../assets/img/arrow_dateselect.svg");
           transform: rotate(180deg);
           float: left;
           margin: 0 20px 0 6px;
         }
         &.arrow-right {
-          background: url("../../assets/arrow_dateselect.svg");
+          background: url("../../assets/img/arrow_dateselect.svg");
           float: right;
           margin: 0 6px 0 20px;
         }
@@ -334,7 +334,7 @@
         display: inline-block;
         width: 25px;
         height: 8px;
-        background: url("../../assets/arrow_dates_small.svg");
+        background: url("../../assets/img/arrow_dates_small.svg");
         margin: 0 10px;
       }
       .single-ticket-wrapper {
