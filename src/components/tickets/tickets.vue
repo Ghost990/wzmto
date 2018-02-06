@@ -95,7 +95,7 @@
             </span>
           </div>
         </div>
-        {{ returnSelectedTicket }}
+
         <div class="row white-bg">
           <div class="col">
             <div class="row ticket-categories align-items-center">
@@ -119,6 +119,7 @@
             <wizz-tickets-descriptions></wizz-tickets-descriptions>
 
             <wizz-tickets-moredates></wizz-tickets-moredates>
+
           </div>
         </div>
       </div>
@@ -158,11 +159,8 @@
     props: ['departureDate'],
     data() {
       return {
-        ticketRows: [],
-
         actualFlight: [],
         isTicketsShow: false,
-        selectedTicket: '',
         departureCity: '',
         destinationCity: '',
         selectedDate: '',
@@ -177,21 +175,8 @@
         returnDestinationCity: '',
         returnSelectedDate: '',
         returnDepartureIata: '',
-        returnDestinationIata: '',
-        returnSelectedTicket: '',
-        isReturnTicketSelected: false
+        returnDestinationIata: ''
       }
-    },
-    methods: {
-      selectTicket(ticket, event) {
-        this.selectedTicket = ticket;
-        console.log(this.selectedTicket.classList);
-        event.target.classList.add('selected');
-      },
-      returnSelectTicket(ticket, event) {
-        this.returnSelectedTicket = ticket;
-        event.target.classList.add('selected');
-      },
     },
     created() {
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
