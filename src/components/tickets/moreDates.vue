@@ -23,7 +23,7 @@
           <span class="arrow arrow-left"></span>
         </div>
         <div class="col date-traffic">
-          <div class="month d-none d-md-block">
+          <div class="month d-none d-md-inline-block">
             <div class="month-name">
               October
             </div>
@@ -65,7 +65,7 @@
                 <span class="full-4 full"></span>
               </div>
             </div>
-            <div class="single-day d-none d-md-block">
+            <div class="single-day d-none d-md-inline-block">
               <div class="date">
                 Fri 2
               </div>
@@ -120,7 +120,7 @@
                 <span class="full-4 full"></span>
               </div>
             </div>
-            <div class="single-day d-none d-md-block">
+            <div class="single-day d-none d-md-inline-block">
               <div class="date">
                 Wed 7
               </div>
@@ -131,7 +131,7 @@
                 <span class="full-4 full"></span>
               </div>
             </div>
-            <div class="single-day d-none d-md-block">
+            <div class="single-day d-none d-md-inline-block">
               <div class="date">
                 Thu 8
               </div>

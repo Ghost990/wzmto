@@ -29,7 +29,6 @@
     data() {
       return {
         selectedTicket: '',
-        returnSelectedTicket: '',
         selectedFlight: '',
         outboundTicketSelected: false
       }
@@ -42,10 +41,6 @@
       selectTicket(ticket, event, key) {
         this.outboundTicketSelected = true;
         this.selectedTicket = ticket;
-        event.target.classList.add('selected');
-      },
-      returnSelectTicket(ticket, event) {
-        this.returnSelectedTicket = ticket;
         event.target.classList.add('selected');
       }
     },

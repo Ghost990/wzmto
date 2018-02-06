@@ -5,12 +5,12 @@
         Show Discount Club Fares
       </button>
       <div class="discounts">
-                            <span class="discount discount-flight">
-                                €10 discount on flight
-                            </span>
+        <span class="discount discount-flight">
+            €10 discount on flight
+        </span>
         <span class="discount discount-baggage">
-                                €5 discount on baggages
-                            </span>
+            €5 discount on baggages
+        </span>
       </div>
       <div class="read-more">
         <a href="#">

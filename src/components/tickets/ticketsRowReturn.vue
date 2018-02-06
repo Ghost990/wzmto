@@ -28,7 +28,6 @@
   export default {
     data() {
       return {
-        selectedTicket: '',
         returnSelectedTicket: '',
         returnSelectedFlight: '',
         returnTicketSelected: false
@@ -44,9 +43,6 @@
         this.returnSelectedTicket = ticket;
         event.target.classList.add('selected');
       }
-    },
-    created() {
-
     },
     props: ['returnFlights']
   }
