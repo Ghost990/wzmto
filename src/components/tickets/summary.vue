@@ -222,9 +222,6 @@
           opacity: .6;
         }
       }
-      .summary-details {
-
-      }
     }
   }
 </style>
