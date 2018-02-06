@@ -162,7 +162,12 @@
 <script>
   import { bus } from '../../main';
 
+  /**
+   * The Sidebar component.
+   */
+
   export default {
+    name: 'wizz-sidebar',
     data() {
       return {
         selectedTicket: '',
@@ -173,6 +178,9 @@
       }
     },
     computed: {
+      /**
+       * Calculating the single and total price of the selected tickets.
+       */
       getTotal() {
         if (this.isReturnTicketSelected) {
           return this.selectedTicket.price + this.returnSelectedTicket.price;
@@ -180,6 +188,9 @@
           return this.selectedTicket.price
         }
       },
+      /**
+       * Adding 19.5% to the price to get a higher price than the calculated, this way the discount is visible and separable
+       */
       getOriginalPrice() {
         if (this.isReturnTicketSelected) {
           return Math.floor(((this.selectedTicket.price + this.returnSelectedTicket.price) * 1.195));
@@ -200,10 +211,6 @@
         this.returnFlight = event;
         this.returnSelectedTicket = returnSelectedTicket;
       });
-
-
-
-
     }
   }
 </script>

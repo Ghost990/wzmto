@@ -39,7 +39,12 @@
   import moment from 'moment';
   import { bus } from '../../main';
 
+  /**
+   * The SelectBackDates component.
+   */
+
   export default {
+    name: 'wizz-select-backdate',
     data() {
       return {
         returnDate: '',
@@ -58,6 +63,9 @@
       }
     },
     methods: {
+      /**
+       * Selecting the returndate, setting the minimal selectable value to the departure date +1 day.
+       */
       selectReturnDate() {
         this.isShowingDateselect = true;
         this.returnDate = moment(this.departureDateSelected, 'YYYY-MM-DD').add(1, 'day').format('YYYY-MM-DD');
@@ -66,6 +74,9 @@
       getReturnFlights() {
         bus.$emit('selectbackdate', this.departureDateSelected);
       },
+      /**
+       * Trigger only if data changes.
+       */
       dateChanged() {
         this.isReturnNeeded = true;
       }
@@ -75,6 +86,9 @@
         this.departureDateSelected = event;
       });
     },
+    /**
+     * FadeOut when the element is destroyed e.g. the return date is selected.
+     */
     beforeDestroy() {
       this.animation = {
         classes: 'fadeOut'

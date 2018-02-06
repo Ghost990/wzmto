@@ -152,7 +152,15 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  /**
+   * The MoreDates static component.
+   */
+
+  export default {
+    name: 'wizz-tickets-moredates'
+  }
+</script>
 
 <style lang="scss" scoped>
   @import "../../styles/partials/variables";

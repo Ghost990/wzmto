@@ -145,6 +145,7 @@
   import moment from 'moment';
 
   export default {
+    name: 'wizz-tickets',
     components: {
       'wizz-discounts': DiscountCard,
       'wizz-tickets-moredates': MoreDates,
@@ -179,6 +180,9 @@
       }
     },
     created() {
+      /**
+       * If the localStorage has values load data from there.
+       */
       let value = this.$ls.get('departure');
 
       if (value != null) {
@@ -201,6 +205,9 @@
 
       }
 
+      /**
+       * If no value in localStorage (e.g. init load) then listen to EventBus and load data.
+       */
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
         this.actualFlight = event;
         this.isTicketsShow = true;

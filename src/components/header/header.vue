@@ -40,7 +40,12 @@
 <script>
   import { bus } from '../../main';
 
+  /**
+   * The Header component.
+   */
+
   export default {
+    name: 'wizz-header',
     data() {
       return {
         departureCity: 'Budapest',
@@ -56,6 +61,10 @@
         this.departureIata = departureIata;
         this.destinationIata = destinationIata;
       });
+      /**
+       * If there is value in localStorage then listening to it and fill the selected city and iata values. If not the
+       * default is used from the provided PSD file.
+       */
       let value = this.$ls.get('departure');
       if (value !== null) {
         this.departureCity = value[7];

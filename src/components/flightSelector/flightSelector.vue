@@ -74,7 +74,12 @@
   import moment from 'moment';
   import { APIService } from "../../services/APIService";
 
+  /**
+   * The FlightSelector component.
+   */
+
   export default {
+    name: 'wizz-flight-selector',
     mixins: [APIService],
     data() {
       return {
@@ -113,6 +118,9 @@
         },
       }
     },
+    /**
+     * Watching the changes on the departure date to configure the destination minimum date on the fly.
+     */
     watch: {
       departureDate() {
         this.dateChanged();
@@ -120,6 +128,9 @@
 
     },
     computed: {
+      /**
+       * Getting today's date.
+       */
       getToday() {
         let date = new Date();
         return moment(date, 'YYYY-MM-DD').format('dddd, Do MMMM YYYY');
@@ -129,12 +140,18 @@
       selectReturnClicked() {
         this.isReturnNeeded = true;
       },
+      /**
+       * Getting the iata's on the departure select change.
+       */
       selectedConnect() {
         let vm = this;
         vm.selectedConnections = vm.selected.connections;
         vm.departureIata = vm.selected.iata;
         vm.isFirstSelected = true;
       },
+      /**
+       * Storing the destination iata's.
+       */
       destinationSelect() {
         let vm = this;
         vm.destinationIata = vm.selectedDestination.iata;
@@ -142,11 +159,18 @@
         let value = this.$ls.get('departure');
 
       },
+      /**
+       * Based on the selected departure connections (destinations) iata's look for the shortName (e.g. the full name)
+       * in the list from the API.
+       */
       getFullNames(iata) {
         let vm = this;
         return vm.airports.find(x => x.iata === iata);
 
       },
+      /**
+       * Storing and setting the value on the departure selector.
+       */
       dateChanged() {
         let vm = this;
         vm.destinationIata = vm.selectedDestination.iata;
@@ -158,6 +182,9 @@
 
     },
     created() {
+      /**
+       * Setting the flight values from localStorage if have data, otherwise get the first API call.
+       */
       let value = this.$ls.get('departure');
       if (value != null) {
         this.selected = value[0];
