@@ -173,6 +173,7 @@
       let value = this.$ls.get('departure');
       if (value != null) {
         this.selected = value[0];
+        this.selectedConnections = value[1];
       }
       this.loadLocalData();
     }
