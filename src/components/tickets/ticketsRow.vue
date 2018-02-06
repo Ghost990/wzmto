@@ -2,9 +2,9 @@
   <div>
     <div class="row time-row align-items-center" @click="busData(flight)" v-for="(flight, key) in flights" :key="flight.flightNumber">
       <div class="col-3">
-        {{ flight.departure | moment("HH:mm") }}
+        <time>{{ moment(flight.departure).format('HH:mm') }}</time>
         <span class="arrow"></span>
-        {{ flight.arrival | moment("HH:mm") }}
+        <time>{{ moment(flight.arrival).format('HH:mm') }}</time>
       </div>
       <div class="col">
         <div class="row">
