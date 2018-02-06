@@ -19,11 +19,12 @@ export const APIService = {
             bus.$emit('selectedflight', flightsArray, this.selected.shortName, this.fulls(this.selectedDestination.iata).shortName, this.departureDate, this.departureIata, this.destinationIata, this.isReturnNeeded);
             bus.$emit('returnselecteddate', this.departureDate);
           });
+          let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName, flightsArray];
+          this.$ls.set('departure', values, 60 * 60 * 1000);
         })
         .catch(error => console.log(error));
 
-      let values = [this.selected, this.selectedConnections, this.fulls(this.selectedDestination.iata).shortName, url, this.departureDate, this.departureIata, this.destinationIata, this.selected.shortName];
-      this.$ls.set('departure', values, 60 * 60 * 1000);
+
 
       if (this.isReturnNeeded) {
         url = `https://mock-air.herokuapp.com/search?departureStation=${this.destinationIata}&arrivalStation=${this.departureIata}&date=${this.returnDate}`;
@@ -83,11 +84,27 @@ export const APIService = {
         this.secondSelected = true;
         let url = value[3];
         this.departureDate = value[4];
+        this.departureIata = value[5];
+        this.destinationIata = value[6];
 
         setTimeout(() => {
           this.isLoaded = true;
           this.hideFirst = true;
         }, 1000);
+
+
+        axios.get(value[3])
+          .then(response => {
+            const data = response.data;
+            let flightsArray = [];
+            for (let key in data) {
+              const flight = data[key];
+              flightsArray.push(flight);
+            }
+            this.flights = flightsArray;
+          })
+          .catch(error => console.log(error));
+
       }
 
       bus.$on('selectbackdate', (event) => {

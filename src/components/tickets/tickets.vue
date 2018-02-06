@@ -179,6 +179,18 @@
       }
     },
     created() {
+      let value = this.$ls.get('departure');
+
+      if (value != null) {
+        this.actualFlight = value[8];
+        this.departureCity = value[7];
+        this.destinationCity = value[2];
+        this.selectedDate = value[4];
+        this.departureIata = value[5];
+        this.destinationIata = value[6];
+        this.isTicketsShow = true;
+      }
+      
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
         this.actualFlight = event;
         this.isTicketsShow = true;
@@ -189,6 +201,7 @@
         this.destinationIata = destinationIata;
         this.isReturn = isReturn;
         this.isBackSelectorShow = true;
+
       });
 
       bus.$on('returnselectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata, isReturn) => {
