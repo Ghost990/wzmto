@@ -114,7 +114,7 @@
           altFormat: 'l, J F Y',
           altInput: true,
           dateFormat: 'Y-m-d',
-          defaultDate: moment(new Date(), 'YYYY-MM-DD').format('YYYY-MM-DD'),
+          defaultDate: moment('2019-09-09', 'YYYY-MM-DD').format('YYYY-MM-DD'),
           minDate: "today"
         },
         configReturn: {
@@ -264,6 +264,7 @@
         this.isFirstSelected = true;
         this.secondSelected = true;
         let url = value[3];
+        this.departureDate = value[4];
 
         setTimeout(() => {
           this.isLoaded = true;
