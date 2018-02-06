@@ -17,18 +17,20 @@
   import Sidebar from './components/sidebar/sidebar.vue';
   import Tickets from './components/tickets/tickets.vue';
 
+  /**
+   * The App component which is the main entry point.
+   *
+   * @author Zsolt Nagy
+   * @license MIT
+   */
+
   export default {
+    name: 'app',
     components: {
       'wizz-header': Header,
       'wizz-titlebar': TitleBar,
       'wizz-sidebar': Sidebar,
       'wizz-tickets': Tickets
-    },
-    created() {
-      var nowDate = new Date();
-      // var date = nowDate.getFullYear()+'/'+(nowDate.getMonth()+1)+'/'+nowDate.getDate();
-      var date =
-      console.log(date);
     }
   }
 </script>

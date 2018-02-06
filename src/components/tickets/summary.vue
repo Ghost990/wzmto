@@ -92,9 +92,6 @@
 
   /**
    * The Summary component.
-   *
-   * @author Zsolt Nagy
-   * @license MIT
    */
 
   export default {

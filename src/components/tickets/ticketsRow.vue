@@ -25,6 +25,10 @@
 <script>
   import { bus } from '../../main';
 
+  /**
+   * TicketsRow component.
+   */
+
   export default {
     name: 'wizz-tickets-row',
     data() {

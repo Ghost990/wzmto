@@ -144,6 +144,10 @@
   import { bus } from '../../main';
   import moment from 'moment';
 
+  /**
+   * The Tickets component.
+   */
+
   export default {
     name: 'wizz-tickets',
     components: {

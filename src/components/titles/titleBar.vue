@@ -9,7 +9,14 @@
   </div>
 </template>
 
-<script></script>
+<script>
+  /**
+   * The TitleBar static component.
+   */
+  export default {
+    name: 'wizz-title-bar'
+  }
+</script>
 
 <style lang="scss" scoped>
   @import "../../styles/partials/variables";
