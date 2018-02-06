@@ -44,6 +44,7 @@
       position: relative;
       margin-bottom: 20px;
       .discount-fares-button {
+        background: white;
         text-transform: uppercase;
         color: $pink;
         border: 2px solid $pink;

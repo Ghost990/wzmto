@@ -219,7 +219,7 @@
       display: inline-block;
       width: 25px;
       height: 8px;
-      background: url("../../assets/img/arrow_dates_small.svg");
+      background: url("../../assets/arrow_dates_small.svg");
       margin: 0 10px;
     }
     .summary {

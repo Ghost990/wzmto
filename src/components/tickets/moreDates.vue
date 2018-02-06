@@ -215,13 +215,13 @@
         height: 18px;
         cursor: pointer;
         &.arrow-left {
-          background: url("../../assets/img/arrow_dateselect.svg");
+          background: url("../../assets/arrow_dateselect.svg");
           transform: rotate(180deg);
           float: left;
           margin: 0 20px 0 6px;
         }
         &.arrow-right {
-          background: url("../../assets/img/arrow_dateselect.svg");
+          background: url("../../assets/arrow_dateselect.svg");
           float: right;
           margin: 0 6px 0 20px;
         }
@@ -280,7 +280,7 @@
                 transform: translate(-50%, -50%);
                 width: 25px;
                 height: 25px;
-                background: url("../../assets/img/icon-x.svg");
+                background: url("../../assets/icon-x.svg");
                 .full {
                   display: none;
                 }

@@ -79,13 +79,14 @@
       display: inline-block;
       width: 25px;
       height: 8px;
-      background: url("../../assets/img/arrow_dates_small.svg");
+      background: url("../../assets/arrow_dates_small.svg");
       margin: 0 10px;
     }
     .single-ticket-wrapper {
       background: white;
       padding: 20px 8px;
       .single-ticket {
+        background: white;
         width: 100%;
         height: 50px;
         border: 2px solid $pink;

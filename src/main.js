@@ -12,21 +12,21 @@ import axios from 'axios';
 
 axios.defaults.baseURL = 'https://mock-air.herokuapp.com';
 
-Vue.use(vOutsideEvents);
+Vue.use(vOutsideEvents)
 
-Vue.use(VAnimateCss);
+Vue.use(VAnimateCss)
 
-Vue.use(VueLocalStorage);
+Vue.use(VueLocalStorage)
 
-Vue.prototype.moment = moment;
+Vue.prototype.moment = moment
 
-Vue.use(flatPickr);
+Vue.use(flatPickr)
 
-Vue.use(BootstrapVue);
+Vue.use(BootstrapVue)
 
-Vue.component('v-select', vSelect);
+Vue.component('v-select', vSelect)
 
-export const bus = new Vue();
+export const bus = new Vue()
 
 new Vue({
   el: '#app',

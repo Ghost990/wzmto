@@ -88,6 +88,9 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    background: url("assets/map.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .white-bg {

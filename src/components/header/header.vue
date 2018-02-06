@@ -93,7 +93,7 @@
       .logo {
         width: 24px;
         height: 24px;
-        background: url("../../assets/img/logo.svg");
+        background: url("../../assets//logo.svg");
       }
       .routes {
         @include media-breakpoint-down(md) {
@@ -119,7 +119,7 @@
         .arrows {
           width: 29px;
           height: 21px;
-          background: url("../../assets/img/arrows.svg");
+          background: url("../../assets/arrows.svg");
           display: inline-block;
           margin: 0 25px;
           @include media-breakpoint-down(md) {
@@ -144,13 +144,13 @@
           .profile-adult {
             width: 16px;
             height: 19px;
-            background: url("../../assets/img/profile.svg");
+            background: url("../../assets/profile.svg");
             display: inline-block;
           }
           .profile-children {
             width: 13px;
             height: 14px;
-            background: url("../../assets/img/profile_small.svg");
+            background: url("../../assets/profile_small.svg");
             display: inline-block;
           }
         }

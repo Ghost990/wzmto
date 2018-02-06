@@ -39,7 +39,7 @@
     .flight-icon {
       width: 37px;
       height: 39px;
-      background: url("../../assets/img/plane.svg");
+      background: url("../../assets/plane.svg");
       display: inline-block;
       margin-right: 20px;
       @include media-breakpoint-down(md) {
