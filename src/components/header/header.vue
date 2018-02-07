@@ -34,6 +34,7 @@
         </div>
       </div>
     </div>
+
   </nav>
 </template>
 
@@ -51,29 +52,20 @@
         departureCity: 'Budapest',
         destinationCity: 'Barcelona El Prat',
         departureIata: 'BUD',
-        destinationIata: 'BCN'
+        destinationIata: 'BCN',
+        scrollPosition: 0
       }
     },
     methods: {
-      changeClass () {
-        var scrollpos = window.scrollY;
-        var header = document.getElementById("infobar");
-        function add_class_on_scroll() {
-          header.classList.add("fade-in");
+      handleScroll(event) {
+        let scrollpos = window.scrollY;
+        let header = document.getElementById('infobar');
+        if (scrollpos >= 100) {
+          header.classList.add('shadow');
+        } else {
+          header.classList.remove('shadow');
         }
-        function remove_class_on_scroll() {
-          header.classList.remove("fade-in");
-        }
-        window.addEventListener('scroll', function(){
-          scrollpos = window.scrollY;
-          if(scrollpos > 60){
-            add_class_on_scroll();
-          }
-          else {
-            remove_class_on_scroll();
-          }
-          console.log(scrollpos);
-        });
+      }
     },
     created() {
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata) => {
@@ -94,14 +86,13 @@
         this.destinationIata = value[6];
       }
 
-      window.addEventListener('scroll', function(e) {
-        let infobar = document.getElementById('infobar');
-        alert(e.pageY);
-        //infobar.classList[e.pageY > 10 ? 'add' : 'remove']('shadow');
-      });
+      window.addEventListener('scroll', this.handleScroll);
 
     },
-    }
+      mounted() {
+
+      }
+
   }
 </script>
 
