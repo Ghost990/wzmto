@@ -1,5 +1,5 @@
 <template>
-  <nav class="info-bar">
+  <nav class="info-bar" id="infobar">
     <div class="container">
       <div class="row align-items-center inner">
         <div class="col-xl-1 col-lg-1 col-md-1 col-12 d-none d-md-block">
@@ -54,6 +54,27 @@
         destinationIata: 'BCN'
       }
     },
+    methods: {
+      changeClass () {
+        var scrollpos = window.scrollY;
+        var header = document.getElementById("infobar");
+        function add_class_on_scroll() {
+          header.classList.add("fade-in");
+        }
+        function remove_class_on_scroll() {
+          header.classList.remove("fade-in");
+        }
+        window.addEventListener('scroll', function(){
+          scrollpos = window.scrollY;
+          if(scrollpos > 60){
+            add_class_on_scroll();
+          }
+          else {
+            remove_class_on_scroll();
+          }
+          console.log(scrollpos);
+        });
+    },
     created() {
       bus.$on('selectedflight', (event, departureCity, destinationCity, selectedDate, departureIata, destinationIata) => {
         this.departureCity = departureCity;
@@ -72,6 +93,14 @@
         this.departureIata = value[5];
         this.destinationIata = value[6];
       }
+
+      window.addEventListener('scroll', function(e) {
+        let infobar = document.getElementById('infobar');
+        alert(e.pageY);
+        //infobar.classList[e.pageY > 10 ? 'add' : 'remove']('shadow');
+      });
+
+    },
     }
   }
 </script>
@@ -84,9 +113,12 @@
     height: 60px;
     background: $blue;
     color: white;
-    //position: fixed;
+    position: fixed;
     width: 100%;
     z-index: 1;
+    @include media-breakpoint-down(md) {
+      position: relative;
+    }
     @include transition(transition, 0.5s);
     .inner {
       height: 60px;

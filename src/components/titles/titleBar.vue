@@ -24,6 +24,10 @@
 
   .main-text {
     padding: 39px 0 29px 0;
+    margin-top: 60px;
+    @include media-breakpoint-down(md) {
+      margin-top: 0;
+    }
     .page-title {
       color: $blue;
       font-size: 40px;
