@@ -59,7 +59,7 @@
       padding: 0 8px;
       color: $dark;
       .title {
-        font-size: 12px;
+        font-size: 0.75rem;
         font-weight: bold;
         padding: 20px 0;
         text-transform: uppercase;

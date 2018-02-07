@@ -89,10 +89,6 @@
       window.addEventListener('scroll', this.handleScroll);
 
     },
-      mounted() {
-
-      }
-
   }
 </script>
 
@@ -125,13 +121,13 @@
         .route {
           display: inline-block;
           .leaving-from-text {
-            font-size: 12px;
+            font-size: 0.75rem;
             text-transform: uppercase;
           }
           .city-airport {
-            font-size: 20px;
+            font-size: 1.25rem;
             @include media-breakpoint-down(md) {
-              font-size: 14px;
+              font-size: 0.875rem;
             }
             .city-shortname {
               text-transform: uppercase;
@@ -155,12 +151,12 @@
       }
       .passengers {
         .passengers-text {
-          font-size: 12px;
+          font-size: 0.75rem;
           text-transform: uppercase;
         }
         .profile {
           display: inline-block;
-          font-size: 20px;
+          font-size: 1.25rem;
           &:last-of-type {
             margin-left: 20px;
           }

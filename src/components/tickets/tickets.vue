@@ -262,7 +262,7 @@
       .outbound {
         float: left;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 1.125rem;
         color: #919191;
         text-transform: uppercase;
         position: absolute;
@@ -273,7 +273,7 @@
         }
       }
       .ticket-route {
-        font-size: 22px;
+        font-size: 1.375rem;
         color: $blue;
         .arrow {
           width: 32px;
@@ -308,7 +308,7 @@
       .date {
         text-transform: uppercase;
         font-weight: bold;
-        font-size: 12px;
+        font-size: 0.75rem;
         color: #919191;
         display: inline-block;
         &.date-right {
@@ -319,14 +319,14 @@
         }
       }
       .actual-date {
-        font-size: 18px;
+        font-size: 1.125rem;
         text-align: center;
       }
     }
     .ticket-categories {
       .ticket-category-header {
         background: white;
-        font-size: 12px;
+        font-size: 0.75rem;
         font-weight: bold;
         padding: 20px 0;
         text-transform: uppercase;

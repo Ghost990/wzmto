@@ -102,7 +102,7 @@
   @import "../../styles/bootstrap/bootstrap";
 
   h3 {
-    font-size: 18px;
+    font-size: 1.125rem;
     text-transform: uppercase;
   }
 
@@ -117,7 +117,7 @@
       padding: 25px;
       .select-text {
         p {
-          font-size: 16px;
+          font-size: 1rem;
           opacity: .6;
         }
       }

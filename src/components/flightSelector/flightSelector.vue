@@ -226,7 +226,7 @@
     margin: 10px;
     text-align: center;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 0.75rem;
     cursor: pointer;
   }
 
@@ -235,7 +235,7 @@
   }
 
   h5 {
-    font-size: 16px;
+    font-size: 1rem;
     color: #333333;
     font-weight: bold;
   }

@@ -220,7 +220,7 @@
   @import "../../styles/bootstrap/bootstrap";
 
   h3 {
-    font-size: 16px;
+    font-size: 1rem;
     text-transform: uppercase;
     color: $blue !important;
     font-weight: bold;
@@ -256,7 +256,7 @@
         font-weight: bold;
         height: 53px;
         border-radius: 3px;
-        font-size: 16px;
+        font-size: 1rem;
         cursor: pointer;
         border: none;
         @include transition(transition, 0.5s);
@@ -275,7 +275,7 @@
       .sidebar-subtitle {
         border-bottom: 1px solid $background;
         .subtitle {
-          font-size: 12px;
+          font-size: 0.75rem;
         }
       }
       .total-newprice {
@@ -284,7 +284,7 @@
           color: $blue;
           text-transform: uppercase;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 1rem;
         }
       }
       .total-oldprice {
@@ -292,7 +292,7 @@
           color: $light;
           text-transform: uppercase;
           font-weight: bold;
-          font-size: 14px;
+          font-size: 0.875rem;
         }
       }
     }
@@ -304,7 +304,7 @@
         background: $pink;
         color: white;
         font-weight: bold;
-        font-size: 14px;
+        font-size: 0.875rem;
         width: 100%;
         border-radius: 3px;
         margin-top: -2px;

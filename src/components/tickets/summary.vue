@@ -168,17 +168,17 @@
   @import "../../styles/bootstrap/bootstrap";
 
   h3 {
-    font-size: 24px;
+    font-size: 1.5rem;
     text-transform: uppercase;
     text-align: center;
   }
 
   h4 {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   p {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   .date-row {
@@ -192,11 +192,11 @@
 
   .summary-row {
     margin-bottom: 30px;
-    font-size: 18px;
+    font-size: 1.125rem;
     .date-row {
       margin: 15px 0;
       .total-summary {
-        font-size: 24px;
+        font-size: 1.5rem;
         margin: 5px 0;
         padding-top: 10px;
         @include media-breakpoint-down(md) {

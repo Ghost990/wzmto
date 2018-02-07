@@ -70,7 +70,7 @@
     }
     .ticket-dates {
       @include media-breakpoint-down(md) {
-        font-size: 18px;
+        font-size: 1.125rem;
         font-weight: bold;
         text-align: center;
       }

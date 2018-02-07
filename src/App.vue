@@ -38,9 +38,14 @@
 <style lang="scss">
   @import "styles/partials/variables";
   @import "styles/bootstrap/bootstrap";
+
+  :root {
+    font-size: 16px;
+  }
+
   body {
     font-family: 'Source Sans Pro', sans-serif;
-    font-size: 14px;
+    font-size: 0.875rem;
     background: $background;
     margin: 0;
     padding: 0;

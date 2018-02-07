@@ -30,12 +30,12 @@
     }
     .page-title {
       color: $blue;
-      font-size: 40px;
+      font-size: 2.5rem;
       text-transform: uppercase;
       display: inline-block;
       margin: 0;
       @include media-breakpoint-down(md) {
-        font-size: 24px;
+        font-size: 1.5rem;
         text-align: center;
         width: 100%;
       }

@@ -173,7 +173,7 @@
       position: relative;
       .more-dates-title {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 0.875rem;
         margin-left: 20px;
         display: inline-block;
       }
@@ -183,7 +183,7 @@
         display: inline-block;
         div {
           display: inline-block;
-          font-size: 12px;
+          font-size: 0.75rem;
           font-weight: bold;
           @include transition(transition, 0.5s);
           &:first-of-type {
@@ -247,7 +247,7 @@
             .date {
               font-weight: bold;
               background: white;
-              font-size: 12px;
+              font-size: 0.75rem;
             }
             .fullness {
               height: 60px;
